@@ -1,4 +1,4 @@
-![logo-color](https://github.com/jtiradohernandez/ironhack-final-project/assets/23397511/a8b41e8a-deb1-443a-bea9-722a1291760b)
+![logo-color](https://github.com/jtiradohernandez/ironhack-final-project/assets/23397511/a8b41e8a-deb1-443a-bea9-722a1291760b = 250x250)
 
 
 # Project | Nomai Timeless Resorts
