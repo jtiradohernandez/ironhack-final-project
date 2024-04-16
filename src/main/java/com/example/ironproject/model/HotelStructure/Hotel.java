@@ -8,6 +8,11 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+
 @Getter
 @Setter
 @Entity
@@ -15,19 +20,27 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int hotelId;
+    @NotEmpty(message = "name cannot be empty")
     String name;
-    String direction;
+    @NotEmpty(message = "address cannot be empty")
+    String address;
+    @NotEmpty(message = "region cannot be empty")
     String Region;
+    @NotEmpty(message = "planet cannot be empty")
     String Planet;
+    @Max(5)
+    @Min(0)
     int rating;
+    @NotEmpty(message = "capacity cannot be empty")
+    @Positive
     int capacity;
 
-    public Hotel(String name, String direction, String region, String planet, int rating, int capacity) {
+    public Hotel(String name, String address, String region, String planet, int capacity) {
         this.name = name;
-        this.direction = direction;
+        this.address = address;
         Region = region;
         Planet = planet;
-        this.rating = rating;
+        this.rating = 0;
         this.capacity = capacity;
     }
 }
