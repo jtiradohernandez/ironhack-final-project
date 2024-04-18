@@ -17,6 +17,7 @@ import javax.validation.constraints.Positive;
 @Setter
 @Entity
 public class Hotel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int hotelId;
@@ -28,9 +29,6 @@ public class Hotel {
     String Region;
     @NotEmpty(message = "planet cannot be empty")
     String Planet;
-    @Max(5)
-    @Min(0)
-    int rating;
     @NotEmpty(message = "capacity cannot be empty")
     @Positive
     int capacity;
@@ -40,7 +38,6 @@ public class Hotel {
         this.address = address;
         Region = region;
         Planet = planet;
-        this.rating = 0;
         this.capacity = capacity;
     }
 }

@@ -13,17 +13,13 @@ import javax.validation.constraints.Positive;
 @Setter
 @Entity
 public class Bedroom extends Room {
-    @NotEmpty(message = "This bedroom need beds")
-    @Positive
-    int bedAmount;
     @NotEmpty(message = "The bedroom must be assigned to a room number")
-    @Positive
+    @Positive(message = "Room number cannot be negative or zero")
     int roomNumber;
     Boolean availability;
 
-    public Bedroom(int hotelId, int floor, int bedAmount, int roomNumber) {
-        super(hotelId, floor);
-        this.bedAmount = bedAmount;
+    public Bedroom(int hotelId, int floor, int capacity, int roomNumber) {
+        super(hotelId, floor, capacity);
         this.roomNumber = roomNumber;
         this.availability = true;
     }
