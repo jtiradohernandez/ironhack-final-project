@@ -38,7 +38,7 @@ public class HotelController {
         return hotelService.addHotels(hotels);
     }
 
-    @PutMapping("/hotel")
+    @PatchMapping("/hotel")
     @ResponseStatus(HttpStatus.OK)
     public List<Hotel> updateHotels(@RequestBody @Valid List<HotelDTO> hotelDTOs){
         return hotelService.updateHotels(hotelDTOs);
@@ -46,7 +46,7 @@ public class HotelController {
 
     @DeleteMapping("/hotel")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteHotels(@RequestBody List<int> hotelIDs){
+    public void deleteHotels(@RequestBody List<Integer> hotelIDs){
         hotelService.deleteHotels(hotelIDs);
     }
 }

@@ -2,6 +2,7 @@ package com.example.ironproject.model.HotelStructure;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Min;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 abstract class Room {
     @Id
@@ -19,15 +21,15 @@ abstract class Room {
     @Positive(message = "ID be negative or zero")
     @ManyToOne
     @JoinColumn(name="hotel_id")
-    int hotelId;
+    Hotel hotel;
     @NotEmpty(message = "Facility must have a capacity")
     @Positive(message = "Capacity cannot be negative or zero")
     int capacity;
     @NotEmpty(message = "Room must be in any floor")
     int floor;
 
-    public Room(int hotelId, int floor, int capacity) {
-        this.hotelId = hotelId;
+    public Room(Hotel hotel, int floor, int capacity) {
+        this.hotel = hotel;
         this.floor = floor;
         this.capacity = capacity;
     }

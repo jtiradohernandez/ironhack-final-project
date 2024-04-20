@@ -1,5 +1,6 @@
 package com.example.ironproject.controller.HotelStructure;
 
+import com.example.ironproject.DTO.HotelStructure.FacilityDTO;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.service.HotelStructure.FacilityService;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class FacilityController {
         return facilityService.addFacilities(facilities);
     }
 
-    @PutMapping("/hotel/facilities")
+    @PatchMapping("/hotel/facilities")
     @ResponseStatus(HttpStatus.OK)
     public List<Facility> updateFacilities(@RequestBody @Valid List<FacilityDTO> facilitiesDTOs){
         return facilityService.updateFacilities(facilitiesDTOs);
@@ -46,7 +47,7 @@ public class FacilityController {
 
     @DeleteMapping("/hotel/facilities")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteFacilities(@RequestBody List<int> facilityIDs){
+    public void deleteFacilities(@RequestBody List<Integer> facilityIDs){
         facilityService.deleteFacilities(facilityIDs);
     }
 }

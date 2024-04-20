@@ -34,7 +34,7 @@ public class HotelService {
         return hotelsRepo;
     }
 
-    public void deleteHotels(List<int> hotelIDs) {
+    public void deleteHotels(List<Integer> hotelIDs) {
         for(int i = 0; i <= hotelIDs.size();i++){
             int id = hotelIDs.get(i);
             hotelRepository.delete(hotelRepository.findByHotelId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel " + id +" not found")));
@@ -42,6 +42,7 @@ public class HotelService {
     }
 
     public List<Hotel> updateHotels(List<HotelDTO> hotelDTOs) {
+        List<Hotel> hotelsRepo = new ArrayList<Hotel>();
         for(int i = 0; i <= hotelDTOs.size();i++){
             int id = hotelDTOs.get(i).getHotelId();
             Optional<Hotel> hotelUpdated = hotelRepository.findByHotelId(id);
@@ -57,12 +58,11 @@ public class HotelService {
             if(!hotelDTOs.get(i).getRegion().isEmpty()){
                 hotelUpdated.get().setRegion(hotelDTOs.get(i).getRegion());
             }
-            if(hotelDTOs.get(i).getCapacity() !=  ){
+            if(hotelDTOs.get(i).getCapacity() != null ){
                 hotelUpdated.get().setRegion(hotelDTOs.get(i).getRegion());
             }
-
-
-            hotelRepository.save(hotelRepository.findByHotelId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel " + id +" not found")));
+            hotelsRepo.add(hotelRepository.save(hotelUpdated.get()));
         }
+        return hotelsRepo;
     }
 }

@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Data
-public class FacilityDTO {
-    int roomId;
+public class FacilityDTO extends RoomDTO {
     @NotEmpty(message = "Facility must have a name")
     String name;
     Boolean canBeBooked;

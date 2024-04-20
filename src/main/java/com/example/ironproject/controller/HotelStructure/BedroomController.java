@@ -1,5 +1,7 @@
 package com.example.ironproject.controller.HotelStructure;
 
+import com.example.ironproject.DTO.HotelStructure.BedroomDTO;
+import com.example.ironproject.DTO.HotelStructure.HotelDTO;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.model.HotelStructure.Hotel;
@@ -46,9 +48,15 @@ public class BedroomController {
         return bedroomService.addBedrooms(bedrooms);
     }
 
+    @PatchMapping("/hotel/bedrooms")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Bedroom> updateBedrooms(@RequestBody @Valid List<BedroomDTO> bedroomDTOs){
+        return bedroomService.updateBedrooms(bedroomDTOs);
+    }
+
     @DeleteMapping("/hotel/bedrooms")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBedrooms(@RequestBody List<int> bedroomIDs){
+    public void deleteBedrooms(@RequestBody List<Integer> bedroomIDs){
         bedroomService.deleteBedrooms(bedroomIDs);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ironproject.repository.HotelStructure;
 
 import com.example.ironproject.model.HotelStructure.Facility;
+import com.example.ironproject.model.HotelStructure.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, String> {
-    List<Facility> findFacilitiesByHotelId(int hotelId);
+    List<Facility> findFacilitiesByHotel(Optional<Hotel> hotel);
 
-    Optional<Facility> findByFacilityId(int id);
+    Optional<Facility> findByRoomId(int id);
 }
