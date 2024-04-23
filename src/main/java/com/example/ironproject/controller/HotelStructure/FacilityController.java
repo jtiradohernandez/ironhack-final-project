@@ -3,6 +3,7 @@ package com.example.ironproject.controller.HotelStructure;
 import com.example.ironproject.DTO.HotelStructure.FacilityDTO;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.service.HotelStructure.FacilityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,8 @@ import java.util.Optional;
 @RestController
 public class FacilityController {
 
-    FacilityService facilityService;
+    @Autowired
+    private FacilityService facilityService;
 
     @GetMapping("/hotel/facilities")
     @ResponseStatus(HttpStatus.OK)

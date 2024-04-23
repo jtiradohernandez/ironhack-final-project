@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, String> {
-    List<Facility> findFacilitiesByHotel(Optional<Hotel> hotel);
+    List<Facility> findFacilitiesByRoomOfHotel(Optional<Hotel> hotel);
 
     Optional<Facility> findByRoomId(int id);
 }

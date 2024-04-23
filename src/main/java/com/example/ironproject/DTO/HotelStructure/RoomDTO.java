@@ -9,13 +9,13 @@ import javax.validation.constraints.Positive;
 
 @Data
 abstract class RoomDTO {
-    int roomId;
+    private int roomId;
     @NotEmpty(message = "Room must be assigned to an hotel")
     @Positive(message = "ID be negative or zero")
-    int hotelId;
+    private int hotelId;
     @NotEmpty(message = "Facility must have a capacity")
     @Positive(message = "Capacity cannot be negative or zero")
-    Integer capacity;
+    private Integer capacity;
     @NotEmpty(message = "Room must be in any floor")
-    Integer floor;
+    private Integer floor;
 }

@@ -18,16 +18,16 @@ import java.util.Optional;
 public class BedroomService {
 
     @Autowired
-    BedroomRepository bedroomRepository;
+    private BedroomRepository bedroomRepository;
     @Autowired
-    HotelRepository hotelRepository;
+    private HotelRepository hotelRepository;
 
     public List<Bedroom> getAllBedrooms(){
         return bedroomRepository.findAll();
     }
 
     public List<Bedroom> getAllBedroomsOfHotel(int hotelId){
-        return bedroomRepository.findBedroomByHotel(hotelRepository.findByHotelId(hotelId));
+        return bedroomRepository.findBedroomByRoomOfHotel(hotelRepository.findByHotelId(hotelId));
     }
 
     public Optional<Bedroom> getBedroomById(int id){

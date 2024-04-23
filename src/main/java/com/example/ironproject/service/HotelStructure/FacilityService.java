@@ -18,15 +18,15 @@ import java.util.Optional;
 public class FacilityService {
 
     @Autowired
-    FacilityRepository facilityRepository;
+    private FacilityRepository facilityRepository;
     @Autowired
-    HotelRepository hotelRepository;
+    private HotelRepository hotelRepository;
     public List<Facility> getAllFacilities(){
         return facilityRepository.findAll();
     }
 
     public List<Facility> getAllFacilitiesOfHotel(int hotelId){
-        return facilityRepository.findFacilitiesByHotel(hotelRepository.findByHotelId(hotelId));
+        return facilityRepository.findFacilitiesByRoomOfHotel(hotelRepository.findByHotelId(hotelId));
     }
 
     public Optional<Facility> getFacilityById(int id){

@@ -16,20 +16,20 @@ import javax.validation.constraints.Positive;
 abstract class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int roomId;
+    private int roomId;
     @NotEmpty(message = "Room must be assigned to an hotel")
     @Positive(message = "ID be negative or zero")
     @ManyToOne
-    @JoinColumn(name="hotel_id")
-    Hotel hotel;
+    @JoinColumn(name="room_of_hotel")
+    private Hotel roomOfHotel;
     @NotEmpty(message = "Facility must have a capacity")
     @Positive(message = "Capacity cannot be negative or zero")
-    int capacity;
+    private int capacity;
     @NotEmpty(message = "Room must be in any floor")
-    int floor;
+    private int floor;
 
-    public Room(Hotel hotel, int floor, int capacity) {
-        this.hotel = hotel;
+    public Room(Hotel roomOfHotel, int floor, int capacity) {
+        this.roomOfHotel = roomOfHotel;
         this.floor = floor;
         this.capacity = capacity;
     }

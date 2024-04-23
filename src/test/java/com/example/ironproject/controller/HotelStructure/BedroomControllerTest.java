@@ -95,7 +95,8 @@ class BedroomControllerTest {
 
     @Test
     void userCanGetBedroomById() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/bedrooms"+bedroom1.getRoomId()))
+        int bedroomId = bedroom1.getRoomId();
+        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/bedrooms/"+bedroomId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();

@@ -20,9 +20,10 @@ import java.util.Optional;
 @RestController
 public class BedroomController {
     @Autowired
-    BedroomRepository bedroomRepository;
+    private BedroomRepository bedroomRepository;
 
-    BedroomService bedroomService;
+    @Autowired
+    private BedroomService bedroomService;
 
     @GetMapping("/hotel/bedrooms")
     @ResponseStatus(HttpStatus.OK)

@@ -10,16 +10,16 @@ import java.util.Optional;
 @Data
 public class HotelDTO {
     @NotNull
-    int hotelId;
+    private int hotelId;
     @NotEmpty(message = "name cannot be empty")
-    String name;
+    private String name;
     @NotEmpty(message = "address cannot be empty")
-    String address;
+    private String address;
     @NotEmpty(message = "region cannot be empty")
-    String Region;
+    private String Region;
     @NotEmpty(message = "planet cannot be empty")
-    String Planet;
+    private String Planet;
     @NotEmpty(message = "capacity cannot be empty")
     @Positive
-    Integer capacity;
+    private Integer capacity;
 }

@@ -20,10 +20,10 @@ import java.util.Date;
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Facility extends Room{
     @NotEmpty(message = "Facility must have a name")
-    String name;
+    private String name;
     Boolean canBeBooked;
     @NotEmpty(message = "Facility must have an opening hours information")
-    ArrayList<Date> openingHours;
+    private ArrayList<Date> openingHours;
 
     public Facility(Hotel hotel,String name, int floor, Boolean canBeBooked, int capacity/*, ArrayList<Date> openingHours*/) {
         super(hotel, floor, capacity);

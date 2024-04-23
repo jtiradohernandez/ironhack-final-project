@@ -22,18 +22,18 @@ public class Hotel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int hotelId;
+    private int hotelId;
     @NotEmpty(message = "name cannot be empty")
-    String name;
+    private String name;
     @NotEmpty(message = "address cannot be empty")
-    String address;
+    private String address;
     @NotEmpty(message = "region cannot be empty")
-    String Region;
+    private String Region;
     @NotEmpty(message = "planet cannot be empty")
-    String Planet;
+    private String Planet;
     @NotEmpty(message = "capacity cannot be empty")
     @Positive
-    int capacity;
+    private int capacity;
 
     public Hotel(String name, String address, String region, String planet, int capacity) {
         this.name = name;

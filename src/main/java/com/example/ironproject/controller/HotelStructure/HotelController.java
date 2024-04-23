@@ -16,9 +16,10 @@ import java.util.Optional;
 public class HotelController {
 
     @Autowired
-    HotelRepository hotelRepository;
+    private HotelRepository hotelRepository;
 
-    HotelService hotelService;
+    @Autowired
+    private HotelService hotelService;
 
     @GetMapping("/hotel")
     @ResponseStatus(HttpStatus.OK)
