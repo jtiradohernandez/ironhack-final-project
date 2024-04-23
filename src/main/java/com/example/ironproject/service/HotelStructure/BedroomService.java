@@ -36,14 +36,14 @@ public class BedroomService {
 
     public List<Bedroom> addBedrooms(List<Bedroom> bedrooms) {
         List<Bedroom> bedroomsRepo = new ArrayList<Bedroom>();
-        for(int i = 0; i <= bedrooms.size();i++){
+        for(int i = 0; i < bedrooms.size();i++){
             bedroomsRepo.add(bedroomRepository.save(bedrooms.get(i)));
         }
         return bedroomsRepo;
     }
 
     public void deleteBedrooms(List<Integer> bedroomIDs) {
-        for(int i = 0; i <= bedroomIDs.size();i++){
+        for(int i = 0; i < bedroomIDs.size();i++){
             int id = bedroomIDs.get(i);
             bedroomRepository.delete(bedroomRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bedroom " + id +" not found")));
         }
@@ -51,7 +51,7 @@ public class BedroomService {
 
     public List<Bedroom> updateBedrooms(List<BedroomDTO> bedroomDTOs) {
         List<Bedroom> bedroomsRepo = new ArrayList<Bedroom>();
-        for(int i = 0; i <= bedroomDTOs.size();i++){
+        for(int i = 0; i < bedroomDTOs.size();i++){
             int id = bedroomDTOs.get(i).getRoomId();
             Optional<Bedroom> bedroomUpdated = bedroomRepository.findByRoomId(id);
             if(bedroomDTOs.get(i).getRoomNumber() != null){

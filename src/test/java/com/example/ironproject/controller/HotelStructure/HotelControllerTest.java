@@ -33,11 +33,11 @@ class HotelControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private HotelRepository hotelRepository;
-    Hotel hotel;
-    Hotel hotel2;
+    private Hotel hotel;
+    private Hotel hotel2;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    int hotelId;
-    int hotelId1;
+    private int hotelId;
+    private int hotelId1;
 
     @BeforeEach
     public void setUp() {
@@ -75,7 +75,9 @@ class HotelControllerTest {
     @Test
     void userCanAddHotel() throws Exception{
         hotelRepository.delete(hotel);
-        String body = objectMapper.writeValueAsString(hotel);
+        List<Hotel> hotelList = new ArrayList<Hotel>();
+        hotelList.add(hotel);
+        String body = objectMapper.writeValueAsString(hotelList);
         MvcResult mvcResult = mockMvc.perform(post("/hotel").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Hotel Outer Wilds"));
     }
@@ -94,6 +96,7 @@ class HotelControllerTest {
 
     @Test
     void userCanUpdateHotel() throws Exception{
+        List<HotelDTO> hotelList = new ArrayList<HotelDTO>();
         HotelDTO values = new HotelDTO();
         hotelId = hotel.getHotelId();
         values.setHotelId(hotelId);
@@ -102,7 +105,8 @@ class HotelControllerTest {
         values.setPlanet("Rocaterra");
         values.setRegion("Cuevas");
         values.setCapacity(500);
-        String body = objectMapper.writeValueAsString(values);
+        hotelList.add(values);
+        String body = objectMapper.writeValueAsString(hotelList);
         MvcResult mvcResult = mockMvc.perform(patch("/hotel").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Una direccion cualquiera"));
@@ -147,8 +151,10 @@ class HotelControllerTest {
 
     @Test
     void userCanDeleteHotel() throws Exception{
+        List<Integer> hotelList = new ArrayList<Integer>();
         Integer hotelId = hotel.getHotelId();
-        String body = objectMapper.writeValueAsString(hotelId);
+        hotelList.add(hotelId);
+        String body = objectMapper.writeValueAsString(hotelList);
         MvcResult mvcResult = mockMvc.perform(delete("/hotel").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(hotelRepository.findByHotelId(hotel.getHotelId()).isPresent());

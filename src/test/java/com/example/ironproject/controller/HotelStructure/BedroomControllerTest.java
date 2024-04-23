@@ -37,17 +37,17 @@ class BedroomControllerTest {
     @Autowired
     private HotelRepository hotelRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
-    Hotel hotel;
-    Hotel hotel2;
-    Bedroom bedroom1;
-    Bedroom bedroom2;
-    Bedroom bedroom3;
-    Bedroom bedroom4;
-    Bedroom bedroom5;
-    Bedroom bedroom6;
-    Bedroom bedroom7;
-    int bedroomId;
-    int bedroomId1;
+    private Hotel hotel;
+    private Hotel hotel2;
+    private Bedroom bedroom1;
+    private Bedroom bedroom2;
+    private Bedroom bedroom3;
+    private Bedroom bedroom4;
+    private Bedroom bedroom5;
+    private Bedroom bedroom6;
+    private Bedroom bedroom7;
+    private int bedroomId;
+    private int bedroomId1;
 
     @BeforeEach
     public void setUp() {
@@ -70,7 +70,6 @@ class BedroomControllerTest {
         bedroomRepository.save(bedroom6);
         bedroomRepository.save(bedroom7);
     }
-
 
     @AfterEach
     void tearDown() {
@@ -127,7 +126,9 @@ class BedroomControllerTest {
     @Test
     void userCanAddBedroom() throws Exception{
         bedroomRepository.delete(bedroom1);
-        String body = objectMapper.writeValueAsString(bedroom1);
+        List<Bedroom> bedroomList = new ArrayList<Bedroom>();
+        bedroomList.add(bedroom1);
+        String body = objectMapper.writeValueAsString(bedroomList);
         MvcResult mvcResult = mockMvc.perform(post("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("100"));
     }
@@ -147,13 +148,14 @@ class BedroomControllerTest {
 
     @Test
     void userCanUpdateBedroom() throws Exception{
+        List<BedroomDTO> bedroomList = new ArrayList<BedroomDTO>();
         BedroomDTO values = new BedroomDTO();
-        bedroomId = bedroom4.getRoomId();
-        values.setRoomId(bedroomId);
+        values.setRoomId(bedroom4.getRoomId());
         values.setAvailability(false);
         values.setCapacity(1);
         values.setRoomNumber(201);
         values.setFloor(2);
+        bedroomList.add(values);
         String body = objectMapper.writeValueAsString(values);
         MvcResult mvcResult = mockMvc.perform(patch("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
@@ -193,8 +195,10 @@ class BedroomControllerTest {
 
     @Test
     void userCanDeleteBedroom() throws Exception{
+        List<Integer> roomList = new ArrayList<Integer>();
         Integer roomId = bedroom1.getRoomId();
-        String body = objectMapper.writeValueAsString(roomId);
+        roomList.add(roomId);
+        String body = objectMapper.writeValueAsString(roomList);
         MvcResult mvcResult = mockMvc.perform(delete("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(bedroomRepository.findByRoomId(bedroom1.getRoomId()).isPresent());

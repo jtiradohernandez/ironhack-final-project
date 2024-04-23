@@ -28,14 +28,14 @@ public class HotelService {
 
     public List<Hotel> addHotels(List<Hotel> hotels) {
         List<Hotel> hotelsRepo = new ArrayList<Hotel>();
-        for(int i = 0; i <= hotels.size();i++){
+        for(int i = 0; i < hotels.size();i++){
             hotelsRepo.add(hotelRepository.save(hotels.get(i)));
         }
         return hotelsRepo;
     }
 
     public void deleteHotels(List<Integer> hotelIDs) {
-        for(int i = 0; i <= hotelIDs.size();i++){
+        for(int i = 0; i < hotelIDs.size();i++){
             int id = hotelIDs.get(i);
             hotelRepository.delete(hotelRepository.findByHotelId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel " + id +" not found")));
         }
@@ -43,7 +43,7 @@ public class HotelService {
 
     public List<Hotel> updateHotels(List<HotelDTO> hotelDTOs) {
         List<Hotel> hotelsRepo = new ArrayList<Hotel>();
-        for(int i = 0; i <= hotelDTOs.size();i++){
+        for(int i = 0; i < hotelDTOs.size();i++){
             int id = hotelDTOs.get(i).getHotelId();
             Optional<Hotel> hotelUpdated = hotelRepository.findByHotelId(id);
             if(!hotelDTOs.get(i).getAddress().isEmpty()){

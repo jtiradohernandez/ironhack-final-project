@@ -38,15 +38,15 @@ class FacilityControllerTest {
     private FacilityRepository facilityRepository;
     @Autowired
     private HotelRepository hotelRepository;
-    Hotel hotel;
-    Hotel hotel2;
-    Facility gym1;
-    Facility gym2;
-    Facility sauna;
-    Facility restaurant1;
-    Facility restaurant2;
-    int facilityId;
-    int facilityId1;
+    private Hotel hotel;
+    private Hotel hotel2;
+    private Facility gym1;
+    private Facility gym2;
+    private Facility sauna;
+    private Facility restaurant1;
+    private Facility restaurant2;
+    private int facilityId;
+    private int facilityId1;
 
     @BeforeEach
     public void setUp() {
@@ -114,7 +114,9 @@ class FacilityControllerTest {
     @Test
     void userCanAddFacility() throws Exception{
         facilityRepository.delete(gym1);
-        String body = objectMapper.writeValueAsString(gym1);
+        List<Facility> facilityList = new ArrayList<Facility>();
+        facilityList.add(gym1);
+        String body = objectMapper.writeValueAsString(facilityList);
         MvcResult mvcResult = mockMvc.perform(post("/hotel/facilities").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("Gimnasio hondonada"));
     }
@@ -134,6 +136,7 @@ class FacilityControllerTest {
 
     @Test
     void userCanUpdateFacility() throws Exception{
+        List<FacilityDTO> facilityList = new ArrayList<FacilityDTO>();
         FacilityDTO values = new FacilityDTO();
         facilityId = sauna.getRoomId();
         values.setRoomId(facilityId);
@@ -142,7 +145,8 @@ class FacilityControllerTest {
         //values.setOpeningHours(); TODO
         values.setCapacity(10);
         values.setFloor(4);
-        String body = objectMapper.writeValueAsString(values);
+        facilityList.add(values);
+        String body = objectMapper.writeValueAsString(facilityList);
         MvcResult mvcResult = mockMvc.perform(patch("/hotel/facilities").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("sauna nueva"));
@@ -186,8 +190,10 @@ class FacilityControllerTest {
 
     @Test
     void userCanDeleteFacility() throws Exception{
+        List<Integer> roomList = new ArrayList<Integer>();
         Integer roomId = restaurant1.getRoomId();
-        String body = objectMapper.writeValueAsString(roomId);
+        roomList.add(roomId);
+        String body = objectMapper.writeValueAsString(roomList);
         MvcResult mvcResult = mockMvc.perform(delete("/hotel/facilities").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(facilityRepository.findByRoomId(restaurant1.getRoomId()).isPresent());

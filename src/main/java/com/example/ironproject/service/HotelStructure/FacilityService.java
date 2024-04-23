@@ -35,14 +35,14 @@ public class FacilityService {
 
     public List<Facility> addFacilities(List<Facility> facilities) {
         List<Facility> facilitiesRepo = new ArrayList<Facility>();
-        for(int i = 0; i <= facilities.size();i++){
+        for(int i = 0; i < facilities.size();i++){
             facilitiesRepo.add(facilityRepository.save(facilities.get(i)));
         }
         return facilitiesRepo;
     }
 
     public void deleteFacilities(List<Integer> facilityIDs) {
-        for(int i = 0; i <= facilityIDs.size();i++){
+        for(int i = 0; i < facilityIDs.size();i++){
             int id = facilityIDs.get(i);
             facilityRepository.delete(facilityRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Facility " + id +" not found")));
         }
@@ -50,7 +50,7 @@ public class FacilityService {
 
     public List<Facility> updateFacilities(List<FacilityDTO> facilitiesDTOs) {
         List<Facility> facilitiesRepo = new ArrayList<Facility>();
-        for(int i = 0; i <= facilitiesDTOs.size();i++){
+        for(int i = 0; i < facilitiesDTOs.size();i++){
             int id = facilitiesDTOs.get(i).getRoomId();
             Optional<Facility> facilityUpdated = facilityRepository.findByRoomId(id);
             if(!facilitiesDTOs.get(i).getName().isEmpty()){
