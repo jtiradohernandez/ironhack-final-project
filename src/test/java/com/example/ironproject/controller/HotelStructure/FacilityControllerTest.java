@@ -177,7 +177,7 @@ class FacilityControllerTest {
         facilityList.add(values1);
         facilityList.add(values2);
         String body = objectMapper.writeValueAsString(facilityList);
-        MvcResult mvcResult = mockMvc.perform(patch("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(patch("/hotel/facilities").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("sauna nueva"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));

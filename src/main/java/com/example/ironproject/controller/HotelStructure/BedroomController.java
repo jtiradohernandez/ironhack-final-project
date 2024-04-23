@@ -50,7 +50,7 @@ public class BedroomController {
     }
 
     @PatchMapping("/hotel/bedrooms")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.OK)
     public List<Bedroom> updateBedrooms(@RequestBody @Valid List<BedroomDTO> bedroomDTOs){
         return bedroomService.updateBedrooms(bedroomDTOs);
     }

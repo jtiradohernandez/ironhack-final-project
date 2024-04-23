@@ -59,7 +59,7 @@ public class HotelService {
                 hotelUpdated.get().setRegion(hotelDTOs.get(i).getRegion());
             }
             if(hotelDTOs.get(i).getCapacity() != null ){
-                hotelUpdated.get().setRegion(hotelDTOs.get(i).getRegion());
+                hotelUpdated.get().setCapacity(hotelDTOs.get(i).getCapacity());
             }
             hotelsRepo.add(hotelRepository.save(hotelUpdated.get()));
         }

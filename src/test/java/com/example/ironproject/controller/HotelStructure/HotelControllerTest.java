@@ -64,7 +64,8 @@ class HotelControllerTest {
 
     @Test
     void userCanGetHotelById() throws Exception{
-        MvcResult mvcResult = this.mockMvc.perform(get("/hotel"+hotel.getHotelId()))
+        int hotelId = hotel.getHotelId();
+        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/"+hotelId))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -134,6 +135,8 @@ class HotelControllerTest {
         values1.setPlanet("Rocaterra tambien");
         values1.setRegion("Nucleo");
         values1.setCapacity(300);
+        hotelList.add(values);
+        hotelList.add(values1);
         String body = objectMapper.writeValueAsString(hotelList);
         MvcResult mvcResult = mockMvc.perform(patch("/hotel").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();

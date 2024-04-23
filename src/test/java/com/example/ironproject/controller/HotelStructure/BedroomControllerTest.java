@@ -156,7 +156,7 @@ class BedroomControllerTest {
         values.setRoomNumber(201);
         values.setFloor(2);
         bedroomList.add(values);
-        String body = objectMapper.writeValueAsString(values);
+        String body = objectMapper.writeValueAsString(bedroomList);
         MvcResult mvcResult = mockMvc.perform(patch("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
@@ -170,7 +170,7 @@ class BedroomControllerTest {
         BedroomDTO values1 = new BedroomDTO();
         BedroomDTO values2 = new BedroomDTO();
         bedroomId = bedroom4.getRoomId();
-        bedroomId1 = bedroom4.getRoomId();
+        bedroomId1 = bedroom6.getRoomId();
         values1.setRoomId(bedroomId);
         values1.setAvailability(false);
         values1.setCapacity(1);
