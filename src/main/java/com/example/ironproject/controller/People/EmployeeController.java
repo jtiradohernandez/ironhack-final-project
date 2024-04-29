@@ -27,41 +27,36 @@ public class EmployeeController {
     @GetMapping("/hotel/employees")
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getEmployees() {
-        return null;
-        //return userService.getAllHotels();
+        return userService.getEmployees();
     }
 
     @GetMapping("/hotel/employees/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Employee> getEmployeeById(@PathVariable(name="id") int empoyeeId) {
-        return null;
-        //return hotelService.getHotelById(hotelId);
+    public Optional<Employee> getEmployeeById(@PathVariable(name="id") String employeeId) {
+        return userService.getEmployeeById(employeeId);
     }
 
     @GetMapping("/hotel/{id}/employees")
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> getEmployeeByHotelId(@PathVariable(name="id") int empoyeeId) {
-        return null;
-        //return bedroomService.getAllBedroomsOfHotel(hotelId);
+    public List<Employee> getEmployeeByHotelId(@PathVariable(name="id") int hotelId) {
+        return userService.getAllEmployeesOfHotel(hotelId);
     }
 
     @PostMapping("/hotel/employees")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Employee> addEmployees(@RequestBody @Valid List<Employee> employees) {
-        return null;
-        //return bedroomService.addBedrooms(bedrooms);
+    public Employee addEmployees(@RequestBody @Valid Employee employee) {
+        return userService.addEmployee(employee);
     }
 
     @PatchMapping("/hotel/employees")
     @ResponseStatus(HttpStatus.OK)
-    public List<Employee> updateEmployees(@RequestBody @Valid List<EmployeeDTO> employeeDTOs){
-        return null;
-        //return bedroomService.updateBedrooms(bedroomDTOs);
+    public Employee updateEmployee(@RequestBody @Valid EmployeeDTO employeeDTO){
+        return userService.updateEmployee(employeeDTO);
     }
 
     @DeleteMapping("/hotel/employees")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEmployees(@RequestBody List<Integer>employeeIDs){
-        //bedroomService.deleteBedrooms(bedroomIDs);
+    public void deleteEmployee(@RequestBody String employeeID){
+        userService.deleteEmployee(employeeID);
     }
 }

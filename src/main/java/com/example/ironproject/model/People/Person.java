@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 @Getter
@@ -21,6 +22,7 @@ abstract class Person {
     @NotEmpty(message = "name cannot be empty")
     private String name;
     @NotEmpty(message = "born date cannot be empty")
+    @Past
     private Date bornDate;
 
     public Person(String DNI, String name, Date bornDate) {

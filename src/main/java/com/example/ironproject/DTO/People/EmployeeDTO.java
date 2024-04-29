@@ -13,11 +13,6 @@ import javax.validation.constraints.NotEmpty;
 public class EmployeeDTO extends PersonDTO{
     @NotEmpty(message = "employee must have a job assigned")
     private Jobs job;
-    @ManyToOne
-    @JoinColumn(name="role_employee")
-    private Role roleEmployee;
-    private String username;
-    private String password;
     @NotEmpty(message = "employee must be assigned to an hotel")
     @ManyToOne
     @JoinColumn(name="hotel_assigned")

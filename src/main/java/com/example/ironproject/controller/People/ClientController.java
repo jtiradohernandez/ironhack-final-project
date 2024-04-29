@@ -5,6 +5,7 @@ import com.example.ironproject.DTO.People.EmployeeDTO;
 import com.example.ironproject.model.People.Client;
 import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.repository.People.ClientRepository;
+import com.example.ironproject.service.People.ClientService;
 import com.example.ironproject.service.People.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,46 +22,41 @@ public class ClientController {
     private ClientRepository clientRepository;
 
     @Autowired
-    private UserService userService;
+    private ClientService clientService;
 
     @GetMapping("/hotel/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getClients() {
-        return null;
-        //return userService.getAllHotels();
+        return clientService.getAllClients();
     }
 
     @GetMapping("/hotel/clients/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Client> getClientById(@PathVariable(name="id") int clientId) {
-        return null;
-        //return hotelService.getHotelById(hotelId);
+    public Optional<Client> getClientById(@PathVariable(name="id") String clientId) {
+        return clientService.getClientById(clientId);
     }
 
     @GetMapping("/hotel/{id}/clients")
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> getClientByHotelId(@PathVariable(name="id") int clientId) {
-        return null;
-        //return bedroomService.getAllBedroomsOfHotel(hotelId);
+    public List<Client> getClientByHotelId(@PathVariable(name="id") int hotelId) {
+        return clientService.getAllClientsByHotel(hotelId);
     }
 
     @PostMapping("/hotel/clients")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Client> addClients(@RequestBody @Valid List<Client> clients) {
-        return null;
-        //return bedroomService.addBedrooms(bedrooms);
+    public Client addClient(@RequestBody @Valid Client client) {
+        return clientService.addClient(client);
     }
 
     @PatchMapping("/hotel/clients")
     @ResponseStatus(HttpStatus.OK)
-    public List<Client> updateClients(@RequestBody @Valid List<ClientDTO> clientDTOs){
-        return null;
-        //return bedroomService.updateBedrooms(bedroomDTOs);
+    public Client updateClient(@RequestBody @Valid ClientDTO clientDTO){
+        return clientService.updateClient(clientDTO);
     }
 
     @DeleteMapping("/hotel/clients")
     @ResponseStatus(HttpStatus.OK)
     public void deleteClients(@RequestBody List<Integer> clientIDs){
-        //bedroomService.deleteBedrooms(bedroomIDs);
+        //clientService.deleteBedrooms(bedroomIDs);
     }
 }
