@@ -1,9 +1,7 @@
 package com.example.ironproject.model.People;
 
 import com.example.ironproject.model.HotelStructure.Bedroom;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Client extends Person{
     @ManyToOne
     @JoinColumn(name="bedroom_assigned")

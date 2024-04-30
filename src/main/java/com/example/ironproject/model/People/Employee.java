@@ -3,9 +3,7 @@ package com.example.ironproject.model.People;
 import com.example.ironproject.enumeration.Jobs;
 import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.model.Security.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +15,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Employee extends Person{
     @NotEmpty(message = "employee must have a job assigned")
     private Jobs job;

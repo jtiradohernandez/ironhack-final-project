@@ -56,7 +56,7 @@ public class ClientController {
 
     @DeleteMapping("/hotel/clients")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteClients(@RequestBody List<Integer> clientIDs){
-        //clientService.deleteBedrooms(bedroomIDs);
+    public void deleteClients(@RequestBody String clientID){
+        clientService.deleteClient(clientID);
     }
 }
