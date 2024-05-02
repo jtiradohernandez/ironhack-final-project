@@ -15,5 +15,5 @@ public interface ClientRepository extends JpaRepository<Client, String>{
 
     Optional<Client> findByDNI(String id);
 
-    List<Client> findClientsByHotel(Optional<Hotel> byHotelId);
+    List<Client> findClientsByHotel(Optional<Hotel> byHotelId); //TODO crear una busqueda que me devuelva el hotel en base a las habitaciones
 }

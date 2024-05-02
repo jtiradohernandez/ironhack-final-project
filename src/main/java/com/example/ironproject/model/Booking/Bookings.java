@@ -17,11 +17,11 @@ import javax.validation.constraints.NotEmpty;
 abstract class Bookings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int bookingId;
+    private int bookingId;
     @NotEmpty(message = "The booking must be assigned to a room")
-    int roomId;
+    private int roomId;
     @NotEmpty(message = "The booking must be assigned to a client")
-    int clientId;
+    private int clientId;
 
     public Bookings(int roomId, int clientId) {
         this.roomId = roomId;

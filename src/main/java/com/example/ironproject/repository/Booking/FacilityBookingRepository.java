@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface FacilityBookingRepository extends JpaRepository<FacilityBooking, String> {
     Optional<FacilityBooking> findFacilityBookingByBookingId(int facilityBookingId);
+
+    Optional<FacilityBooking> findFacilityBookingByHotelId(); //TODO comprobar que hace bien la comprobacion
 }

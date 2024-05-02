@@ -8,9 +8,7 @@ import java.util.Date;
 
 @Data
 public class FacilityDTO extends RoomDTO {
-    @NotEmpty(message = "Facility must have a name")
     private String name;
     private Boolean canBeBooked;
-    @NotEmpty(message = "Facility must have an opening hours information")
     private ArrayList<Date> openingHours;
 }

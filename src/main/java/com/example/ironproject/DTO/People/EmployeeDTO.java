@@ -11,9 +11,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 public class EmployeeDTO extends PersonDTO{
-    @NotEmpty(message = "employee must have a job assigned")
     private Jobs job;
-    @NotEmpty(message = "employee must be assigned to an hotel")
     @ManyToOne
     @JoinColumn(name="hotel_assigned")
     private Hotel hotelAssigned;

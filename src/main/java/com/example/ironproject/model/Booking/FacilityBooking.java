@@ -18,12 +18,12 @@ import java.util.Date;
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class FacilityBooking extends Bookings {
 
-    int workerId;
+    private int workerId;
     @NotEmpty(message = "The booking must be assigned to a service")
-    Service service;
+    private Service service;
     @NotEmpty(message = "The booking must be assigned to a slot")
     @Future
-    Date slot;
+    private Date slot;
 
     public FacilityBooking(int roomId, int clientId, Service service, Date slot) {
         super(roomId, clientId);

@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface BedroomBookingsRepository extends JpaRepository<BedroomBookings, String> {
     Optional<BedroomBookings> findBedroomBookingsByBookingId(int bedroomBookingId);
+
+    BedroomBookings findBedroomBookingByHotelId(); //TODO crear una busqueda que relacione habitaciones con hotel
 }

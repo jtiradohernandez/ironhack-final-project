@@ -1,6 +1,7 @@
 package com.example.ironproject.controller.Booking;
 
 
+import com.example.ironproject.DTO.Booking.FacilityBookingDTO;
 import com.example.ironproject.model.Booking.BedroomBookings;
 import com.example.ironproject.model.Booking.FacilityBooking;
 import com.example.ironproject.model.People.Client;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,24 @@ public class FacilityBookingsController {
     @ResponseStatus(HttpStatus.OK)
     public Optional<FacilityBooking> getFacilityBookingById(@PathVariable(name="id") int facilityBookingId) {
         return facilityBookingService.getFacilityBookingById(facilityBookingId);
+    }
+
+    @GetMapping("/hotel/{id}/facilities/bookings")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<FacilityBooking> getFacilityBookingByHotelId(@PathVariable(name="id") int hotelId) {
+        return facilityBookingService.getAllFacilityBookingsOfHotel(hotelId);
+    }
+
+    @PostMapping("/hotel/facilities/bookings")
+    @ResponseStatus(HttpStatus.CREATED)
+    public FacilityBooking addFacilityBooking(@RequestBody @Valid FacilityBooking facilityBooking) {
+        return facilityBookingService.addFacilityBooking(facilityBooking);
+    }
+
+    @PatchMapping("/hotel/facilities/bookings/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FacilityBooking updateFacilityBooking(@PathVariable(name="id") int bookingId, @RequestBody @Valid FacilityBookingDTO facilityBookingDTO) {
+        return facilityBookingService.updateFacilityBooking(bookingId, facilityBookingDTO);
     }
 
     @DeleteMapping("/hotel/facilities/bookings/{id}")

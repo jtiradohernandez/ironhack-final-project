@@ -19,10 +19,10 @@ import java.util.Date;
 public class BedroomBookings extends Bookings{
     @NotEmpty(message = "The booking must have an arrival date")
     @Future
-    Date arrivalDate;
+    private Date arrivalDate;
     @NotEmpty(message = "The booking must have a departure date")
     @Future
-    Date departureDate;
+    private Date departureDate;
 
     public BedroomBookings(int roomId, int clientId, Date arrivalDate, Date departureDate) {
         super(roomId, clientId);
