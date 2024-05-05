@@ -24,7 +24,8 @@ public class FacilityBookingService {
     }
 
     public Optional<FacilityBooking> getAllFacilityBookingsOfHotel(int hotelId) {
-        return facilityBookingRepository.findFacilityBookingByHotelId();
+        return null;
+        //return facilityBookingRepository.findFacilityBookingByHotelId(hotelId);
     }
 
     public FacilityBooking addFacilityBooking(FacilityBooking facilityBooking) {
@@ -38,14 +39,14 @@ public class FacilityBookingService {
 
     public FacilityBooking updateFacilityBooking(int bookingId, FacilityBookingDTO newBooking) {
         FacilityBooking booking = facilityBookingRepository.findFacilityBookingByBookingId(bookingId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation " + bookingId +" is not found"));
-        if(newBooking.getRoomId() != null){
-            booking.setRoomId(newBooking.getRoomId());
+        if(newBooking.getRoomBooked() != null){
+            booking.setRoomBooked(newBooking.getRoomBooked());
         }
-        if(newBooking.getClientId() != null){
-            booking.setClientId(newBooking.getClientId());
+        if(newBooking.getClientOfBooking() != null){
+            booking.setClientOfBooking(newBooking.getClientOfBooking());
         }
-        if(newBooking.getWorkerId() != null){
-            booking.setWorkerId(newBooking.getWorkerId());
+        if(newBooking.getWorkerAssigned() != null){
+            booking.setWorkerAssigned(newBooking.getWorkerAssigned());
         }
         if(newBooking.getService() != null){
             booking.setService(newBooking.getService());

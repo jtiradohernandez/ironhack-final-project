@@ -1,8 +1,9 @@
 package com.example.ironproject.model.Booking;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import com.example.ironproject.model.HotelStructure.Facility;
+import com.example.ironproject.model.People.Client;
+import com.example.ironproject.model.People.Employee;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,16 +18,17 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class FacilityBooking extends Bookings {
-
-    private int workerId;
+    @ManyToOne
+    @JoinColumn(name="worker_assigned")
+    private Employee workerAssigned;
     @NotEmpty(message = "The booking must be assigned to a service")
     private Service service;
     @NotEmpty(message = "The booking must be assigned to a slot")
     @Future
     private Date slot;
 
-    public FacilityBooking(int roomId, int clientId, Service service, Date slot) {
-        super(roomId, clientId);
+    public FacilityBooking(Facility room, Client client, Service service, Date slot) {
+        super(room, client);
         this.service = service;
         this.slot = slot;
     }

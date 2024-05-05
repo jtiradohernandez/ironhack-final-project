@@ -15,9 +15,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class Client extends Person{
-    @ManyToOne
-    @JoinColumn(name="bedroom_assigned")
-    private Bedroom bedroomAssigned;
     @NotEmpty(message = "client should have a origin")
     private String Origin;
     public Client(String DNI, String name, Date bornDate, String origin) {

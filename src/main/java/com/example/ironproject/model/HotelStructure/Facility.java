@@ -29,6 +29,6 @@ public class Facility extends Room{
         super(hotel, floor, capacity);
         this.name = name;
         this.canBeBooked = canBeBooked;
-        //this.openingHours = openingHours;
+        //this.openingHours = openingHours; //TODO change the opening hours
     }
 }

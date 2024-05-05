@@ -30,7 +30,8 @@ public class ClientService {
     }
 
     public List<Client> getAllClientsByHotel(int hotelId){
-        return clientRepository.findClientsByHotel(hotelRepository.findByHotelId(hotelId));
+        return null;
+        //return clientRepository.findClientsByHotel(hotelRepository.findByHotelId(hotelId));
     }
 
     public Optional<Client> getClientById(String id){
@@ -44,9 +45,6 @@ public class ClientService {
         Client clientUpdated = clientRepository.findByDNI(clientDTO.getDNI()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client is not found"));
         if(clientDTO.getOrigin() != null){
             clientUpdated.setOrigin(clientDTO.getOrigin());
-        }
-        if(clientDTO.getBedroomAssigned() != null){
-            clientUpdated.setBedroomAssigned(clientDTO.getBedroomAssigned());
         }
         return clientRepository.save(clientUpdated);
     }

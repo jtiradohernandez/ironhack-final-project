@@ -1,5 +1,7 @@
 package com.example.ironproject.model.Booking;
 
+import com.example.ironproject.model.HotelStructure.Bedroom;
+import com.example.ironproject.model.People.Client;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -24,8 +26,8 @@ public class BedroomBookings extends Bookings{
     @Future
     private Date departureDate;
 
-    public BedroomBookings(int roomId, int clientId, Date arrivalDate, Date departureDate) {
-        super(roomId, clientId);
+    public BedroomBookings(Bedroom room, Client client, Date arrivalDate, Date departureDate) {
+        super(room, client);
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
     }

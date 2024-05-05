@@ -75,6 +75,11 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public Role saveRole(Role role) {
+        log.info("Saving new role {} to the database", role.getName());
+        return roleRepository.save(role);
+    }
+
     public List<Employee> getEmployees() {
         log.info("Fetching all users");
         return employeeRepository.findAll();
@@ -94,7 +99,6 @@ public class UserService implements UserDetailsService {
     }
 
     public Employee addEmployee(Employee user) {
-        log.info("Saving new user {} to the database", user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return employeeRepository.save(user);
     }

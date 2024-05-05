@@ -12,22 +12,21 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/hotel")
 public class RoleController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/hotel/employees/role")
+    @PostMapping("/employees/role")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addRoleToUser(@RequestBody RoleToUserDTO roleToUserDTO) {
         userService.addRoleToUser(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
     }
 
-    @PatchMapping("/hotel/employees/password/{id}")
+    @PatchMapping("/employees/password/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Employee updateEmployeePassword(@PathVariable(name="id") String employeeId, @RequestBody @Valid String newPassword){
         return userService.updateEmployeePassword(employeeId, newPassword);
     }
-
-
 }

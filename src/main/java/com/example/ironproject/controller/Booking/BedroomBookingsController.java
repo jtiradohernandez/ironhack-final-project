@@ -16,42 +16,43 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/hotel")
 public class BedroomBookingsController {
 
     @Autowired
     BedroomBookingsService bedroomBookingsService;
 
-    @GetMapping("/hotel/bedrooms/bookings")
+    @GetMapping("/bedrooms/bookings")
     @ResponseStatus(HttpStatus.OK)
     public List<BedroomBookings> getBedroomBookings() {
         return bedroomBookingsService.getAllBedroomBookings();
     }
 
-    @GetMapping("/hotel/bedrooms/bookings/{id}")
+    @GetMapping("/bedrooms/bookings/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<BedroomBookings> getBedroomBookingById(@PathVariable(name="id") int bedroomBookingId) {
         return bedroomBookingsService.getBedroomBookingById(bedroomBookingId);
     }
 
-    @GetMapping("/hotel/{id}/bedrooms/bookings")
+    @GetMapping("/{id}/bedrooms/bookings")
     @ResponseStatus(HttpStatus.OK)
     public BedroomBookings getBedroomBookingByHotelId(@PathVariable(name="id") int hotelId) {
         return bedroomBookingsService.getAllBedroomBookingsOfHotel(hotelId);
     }
 
-    @PostMapping("/hotel/bedrooms/bookings")
+    @PostMapping("/bedrooms/bookings")
     @ResponseStatus(HttpStatus.CREATED)
     public BedroomBookings addBedroomBooking(@RequestBody @Valid BedroomBookings bedroomBooking) {
         return bedroomBookingsService.addBedroomBooking(bedroomBooking);
     }
 
-    @PatchMapping("/hotel/bedrooms/bookings/{id}")
+    @PatchMapping("/bedrooms/bookings/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BedroomBookings updateBedroomBooking(@PathVariable(name="id") int bookingId, @RequestBody @Valid BedroomBookingDTO bedroomBookingDTO) {
         return bedroomBookingsService.updateBedroomBooking(bookingId, bedroomBookingDTO);
     }
 
-    @DeleteMapping("/hotel/bedrooms/bookings/{id}")
+    @DeleteMapping("/bedrooms/bookings/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteBedroomBooking(@PathVariable(name="id") int bedroomBookingId){
         bedroomBookingsService.deleteBedroomBooking(bedroomBookingId);

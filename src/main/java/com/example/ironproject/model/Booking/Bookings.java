@@ -1,9 +1,10 @@
 package com.example.ironproject.model.Booking;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.ironproject.model.HotelStructure.Bedroom;
+import com.example.ironproject.model.HotelStructure.Hotel;
+import com.example.ironproject.model.HotelStructure.Room;
+import com.example.ironproject.model.People.Client;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,12 +20,16 @@ abstract class Bookings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
     @NotEmpty(message = "The booking must be assigned to a room")
-    private int roomId;
+    @ManyToOne
+    @JoinColumn(name="room_booked")
+    private Room roomBooked;
     @NotEmpty(message = "The booking must be assigned to a client")
-    private int clientId;
+    @ManyToOne
+    @JoinColumn(name="client_of_booking")
+    private Client clientOfBooking;
 
-    public Bookings(int roomId, int clientId) {
-        this.roomId = roomId;
-        this.clientId = clientId;
+    public Bookings(Room room, Client client) {
+        this.roomBooked = room;
+        this.clientOfBooking = client;
     }
 }

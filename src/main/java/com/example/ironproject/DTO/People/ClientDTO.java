@@ -7,6 +7,5 @@ import javax.validation.constraints.NotEmpty;
 
 @Data
 public class ClientDTO extends PersonDTO{
-    private Bedroom bedroomAssigned;
     private String Origin;
 }

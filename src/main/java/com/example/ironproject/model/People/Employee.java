@@ -29,14 +29,11 @@ public class Employee extends Person{
     @JoinColumn(name="hotel_assigned")
     private Hotel hotelAssigned;
 
-    public Employee(String DNI, String name, Date bornDate, Jobs job, Role roleEmployee, String username, String password, Hotel hotelAssigned) {
+    public Employee(String DNI, String name, Date bornDate, Jobs job, Role roleEmployee, String username, String password) {
         super(DNI, name, bornDate);
         this.job = job;
         this.roleEmployee = roleEmployee;
         this.username = username;
         this.password = password;
-        this.hotelAssigned = hotelAssigned;
     }
-
-
 }

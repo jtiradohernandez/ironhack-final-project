@@ -28,7 +28,8 @@ public class BedroomBookingsService {
     }
 
     public BedroomBookings getAllBedroomBookingsOfHotel(int hotelId) {
-        return bedroomBookingsRepository.findBedroomBookingByHotelId();
+        return null;
+        //return bedroomBookingsRepository.findBedroomBookingByHotelId(hotelId);
     }
 
     public BedroomBookings addBedroomBooking(BedroomBookings bedroomBooking) {
@@ -42,11 +43,11 @@ public class BedroomBookingsService {
 
     public BedroomBookings updateBedroomBooking(int bookingId, BedroomBookingDTO newBooking) {
         BedroomBookings booking = bedroomBookingsRepository.findBedroomBookingsByBookingId(bookingId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation " + bookingId +" is not found"));
-        if(newBooking.getRoomId() != null){
-            booking.setRoomId(newBooking.getRoomId());
+        if(newBooking.getRoomBooked() != null){
+            booking.setRoomBooked(newBooking.getRoomBooked());
         }
-        if(newBooking.getClientId() != null){
-            booking.setClientId(newBooking.getClientId());
+        if(newBooking.getClientOfBooking() != null){
+            booking.setClientOfBooking(newBooking.getClientOfBooking());
         }
         if(newBooking.getArrivalDate() != null){
             booking.setArrivalDate(newBooking.getArrivalDate());

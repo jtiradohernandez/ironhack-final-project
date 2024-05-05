@@ -76,9 +76,11 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         // set up authorization for different request matchers and user roles
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/**").permitAll()
-        //      .requestMatchers(GET, "/api/users").hasAnyAuthority("ROLE_USER")
-                //.requestMatchers(POST, "/hotel/**").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers(GET, "/api/hotel/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers(POST, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(PATCH, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
+                .requestMatchers(DELETE, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/hotel")
 public class EmployeeController {
 
     @Autowired
@@ -24,39 +25,39 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/hotel/employees")
+    @GetMapping("/employees")
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getEmployees() {
         return userService.getEmployees();
     }
 
-    @GetMapping("/hotel/employees/{id}")
+    @GetMapping("/employees/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Employee> getEmployeeById(@PathVariable(name="id") String employeeId) {
         return userService.getEmployeeById(employeeId);
     }
 
-    @GetMapping("/hotel/{id}/employees")
+    @GetMapping("/{id}/employees")
     @ResponseStatus(HttpStatus.OK)
     public List<Employee> getEmployeeByHotelId(@PathVariable(name="id") int hotelId) {
         return userService.getAllEmployeesOfHotel(hotelId);
     }
 
-    @PostMapping("/hotel/employees")
+    @PostMapping("/employees")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee addEmployees(@RequestBody @Valid Employee employee) {
+    public Employee addEmployee(@RequestBody @Valid Employee employee) {
         return userService.addEmployee(employee);
     }
 
-    @PatchMapping("/hotel/employees")
+    @PatchMapping("/employees")
     @ResponseStatus(HttpStatus.OK)
     public Employee updateEmployee(@RequestBody @Valid EmployeeDTO employeeDTO){
         return userService.updateEmployee(employeeDTO);
     }
 
-    @DeleteMapping("/hotel/employees")
+    @DeleteMapping("/employees/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteEmployee(@RequestBody String employeeID){
-        userService.deleteEmployee(employeeID);
+    public void deleteEmployee(@PathVariable(name="id") String employeeId){
+        userService.deleteEmployee(employeeId);
     }
 }

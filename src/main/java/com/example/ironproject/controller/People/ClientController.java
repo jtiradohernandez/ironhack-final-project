@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/hotel")
 public class ClientController {
 
     @Autowired
@@ -24,37 +25,37 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @GetMapping("/hotel/clients")
+    @GetMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getClients() {
         return clientService.getAllClients();
     }
 
-    @GetMapping("/hotel/clients/{id}")
+    @GetMapping("/clients/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Client> getClientById(@PathVariable(name="id") String clientId) {
         return clientService.getClientById(clientId);
     }
 
-    @GetMapping("/hotel/{id}/clients")
+    @GetMapping("/{id}/clients")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getClientByHotelId(@PathVariable(name="id") int hotelId) {
         return clientService.getAllClientsByHotel(hotelId);
     }
 
-    @PostMapping("/hotel/clients")
+    @PostMapping("/clients")
     @ResponseStatus(HttpStatus.CREATED)
     public Client addClient(@RequestBody @Valid Client client) {
         return clientService.addClient(client);
     }
 
-    @PatchMapping("/hotel/clients")
+    @PatchMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public Client updateClient(@RequestBody @Valid ClientDTO clientDTO){
         return clientService.updateClient(clientDTO);
     }
 
-    @DeleteMapping("/hotel/clients")
+    @DeleteMapping("/clients")
     @ResponseStatus(HttpStatus.OK)
     public void deleteClients(@RequestBody String clientID){
         clientService.deleteClient(clientID);

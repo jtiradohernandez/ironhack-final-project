@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/hotel")
 public class BedroomController {
     @Autowired
     private BedroomRepository bedroomRepository;
@@ -25,37 +26,37 @@ public class BedroomController {
     @Autowired
     private BedroomService bedroomService;
 
-    @GetMapping("/hotel/bedrooms")
+    @GetMapping("/bedrooms")
     @ResponseStatus(HttpStatus.OK)
     public List<Bedroom> getBedrooms() {
         return bedroomService.getAllBedrooms();
     }
 
-    @GetMapping("/hotel/bedrooms/{id}")
+    @GetMapping("/bedrooms/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Bedroom> getBedroomById(@PathVariable(name="id") int bedroomId) {
         return bedroomService.getBedroomById(bedroomId);
     }
 
-    @GetMapping("/hotel/{id}/bedrooms")
+    @GetMapping("/{id}/bedrooms")
     @ResponseStatus(HttpStatus.OK)
     public List<Bedroom> getBedroomByHotelId(@PathVariable(name="id") int hotelId) {
         return bedroomService.getAllBedroomsOfHotel(hotelId);
     }
 
-    @PostMapping("/hotel/bedrooms")
+    @PostMapping("/bedrooms")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Bedroom> addBedrooms(@RequestBody @Valid List<Bedroom> bedrooms) {
         return bedroomService.addBedrooms(bedrooms);
     }
 
-    @PatchMapping("/hotel/bedrooms")
+    @PatchMapping("/bedrooms")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Bedroom> updateBedrooms(@RequestBody @Valid List<BedroomDTO> bedroomDTOs){
         return bedroomService.updateBedrooms(bedroomDTOs);
     }
 
-    @DeleteMapping("/hotel/bedrooms")
+    @DeleteMapping("/bedrooms")
     @ResponseStatus(HttpStatus.OK)
     public void deleteBedrooms(@RequestBody List<Integer> bedroomIDs){
         bedroomService.deleteBedrooms(bedroomIDs);
