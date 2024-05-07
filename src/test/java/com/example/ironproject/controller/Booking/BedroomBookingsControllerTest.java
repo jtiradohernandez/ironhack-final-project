@@ -1,4 +1,4 @@
-package com.example.ironproject.controller.Person;
+package com.example.ironproject.controller.Booking;
 
 import com.example.ironproject.controller.BaseTest;
 import org.junit.jupiter.api.AfterEach;
@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class EmployeeControllerTest extends BaseTest {
+public class BedroomBookingsControllerTest extends BaseTest {
     @BeforeEach
     public void setUp() throws Exception {
-        createTestingEmployees();
+        createTestingBedroomBookings();
     }
     @AfterEach
     void tearDown() {
-        employeeRepository.deleteAll();
+        bedroomBookingsRepository.deleteAll();
     }
 }
