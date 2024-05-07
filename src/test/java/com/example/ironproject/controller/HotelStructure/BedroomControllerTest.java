@@ -6,17 +6,12 @@ import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.repository.HotelStructure.BedroomRepository;
 import com.example.ironproject.repository.HotelStructure.HotelRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -30,44 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 class BedroomControllerTest extends BaseTest {
-    @Autowired
-    private BedroomRepository bedroomRepository;
-    @Autowired
-    private HotelRepository hotelRepository;
-    private Hotel hotel;
-    private Hotel hotel2;
-    private Bedroom bedroom1;
-    private Bedroom bedroom2;
-    private Bedroom bedroom3;
-    private Bedroom bedroom4;
-    private Bedroom bedroom5;
-    private Bedroom bedroom6;
-    private Bedroom bedroom7;
-    private int bedroomId;
-    private int bedroomId1;
-    private String token;
-
     @BeforeEach
     public void setUp() throws Exception {
-        hotel = new Hotel("Hotel Outer Wilds", "Santuario","Superficie","Hondonada Frágil",100);
-        hotelRepository.save(hotel);
-        hotel2 = new Hotel("Wild Resort", "Estudio","Centro","Hondonada Frágil",100);
-        hotelRepository.save(hotel2);
-        bedroom1 = new Bedroom( hotel, 1, 2, 100 );
-        bedroom2 = new Bedroom( hotel, 1, 2, 101 );
-        bedroom3 = new Bedroom( hotel, 1, 2, 102 );
-        bedroom4 = new Bedroom( hotel, 1, 3, 103 );
-        bedroom5 = new Bedroom( hotel, 1, 4, 104 );
-        bedroom6 = new Bedroom( hotel2, 1, 2, 100 );
-        bedroom7 = new Bedroom( hotel2, 1, 4, 101 );
-        bedroomRepository.save(bedroom1);
-        bedroomRepository.save(bedroom2);
-        bedroomRepository.save(bedroom3);
-        bedroomRepository.save(bedroom4);
-        bedroomRepository.save(bedroom5);
-        bedroomRepository.save(bedroom6);
-        bedroomRepository.save(bedroom7);
-        token = login("daku","12345678");
+         createTestingBedrooms();
     }
 
     @AfterEach

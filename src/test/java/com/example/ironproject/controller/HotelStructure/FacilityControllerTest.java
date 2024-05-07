@@ -29,42 +29,11 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
 class FacilityControllerTest extends BaseTest {
-    @Autowired
-    private FacilityRepository facilityRepository;
-    @Autowired
-    private HotelRepository hotelRepository;
-    private Hotel hotel;
-    private Hotel hotel2;
-    private Facility gym1;
-    private Facility gym2;
-    private Facility sauna;
-    private Facility restaurant1;
-    private Facility restaurant2;
-    private int facilityId;
-    private int facilityId1;
-    private String token;
-
     @BeforeEach
     public void setUp() throws Exception {
-        hotel = new Hotel("Hotel Outer Wilds", "Santuario","Superficie","Hondonada Frágil",100);
-        hotelRepository.save(hotel);
-        hotel2 = new Hotel("Wild Resort", "Estudio","Centro","Hondonada Frágil",100);
-        hotelRepository.save(hotel2);
-        gym1 = new Facility( hotel,"Gimnasio hondonada", -1, true, 150);
-        gym2 = new Facility( hotel2, "Gimnasio nomai",4, true, 60);
-        sauna = new Facility( hotel,"Sauna", -1, true, 6 );
-        restaurant1 = new Facility( hotel,"Restaurante Hondonada", 5, true, 100 );
-        restaurant2 = new Facility( hotel2,"Restaurante Nomai", 0, true, 200 );
-        facilityRepository.save(gym1);
-        facilityRepository.save(gym2);
-        facilityRepository.save(sauna);
-        facilityRepository.save(restaurant1);
-        facilityRepository.save(restaurant2);
-        token = login("daku","12345678");
+        createTestingFacilities();
     }
 
     @AfterEach

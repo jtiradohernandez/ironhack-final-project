@@ -29,22 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class HotelControllerTest extends BaseTest {
 
-    @Autowired
-    private HotelRepository hotelRepository;
-    private Hotel hotel;
-    private Hotel hotel2;
-    private int hotelId;
-    private int hotelId1;
-
-    private String token;
-
     @BeforeEach
     public void setUp() throws Exception {
-        hotel = new Hotel("Hotel Outer Wilds", "Santuario","Superficie","Hondonada Frágil",100);
-        hotelRepository.save(hotel);
-        hotel2 = new Hotel("Wild Resort", "Estudio","Centro","Hondonada Frágil",100);
-        hotelRepository.save(hotel2);
-        token = login("daku","12345678");
+        createTestingHotels();
     }
 
     @AfterEach
