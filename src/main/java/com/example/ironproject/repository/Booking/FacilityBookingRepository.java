@@ -11,6 +11,6 @@ public interface FacilityBookingRepository extends JpaRepository<FacilityBooking
     Optional<FacilityBooking> findFacilityBookingByBookingId(int facilityBookingId);
 
 
-    //@Query("SELECT * FROM facilityBooking ")
-    //Optional<FacilityBooking> findFacilityBookingByHotelId(int hotelId); //TODO comprobar que hace bien la comprobacion
+    @Query(value = "SELECT * FROM facility_booking INNER JOIN bookings ON facility_booking.id = bookings.booking_id INNER JOIN room ON bookings.room_booked = room.room_id WHERE room.room_of_hotel = :hotelId", nativeQuery=true)
+    Optional<FacilityBooking> findFacilityBookingByHotelId(int hotelId);
 }

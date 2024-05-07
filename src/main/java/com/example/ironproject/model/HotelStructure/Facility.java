@@ -4,6 +4,7 @@ package com.example.ironproject.model.HotelStructure;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name="id")
 public class Facility extends Room{
     @NotEmpty(message = "Facility must have a name")
     private String name;

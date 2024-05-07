@@ -24,8 +24,7 @@ public class FacilityBookingService {
     }
 
     public Optional<FacilityBooking> getAllFacilityBookingsOfHotel(int hotelId) {
-        return null;
-        //return facilityBookingRepository.findFacilityBookingByHotelId(hotelId);
+        return facilityBookingRepository.findFacilityBookingByHotelId(hotelId);
     }
 
     public FacilityBooking addFacilityBooking(FacilityBooking facilityBooking) {

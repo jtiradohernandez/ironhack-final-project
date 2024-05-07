@@ -13,6 +13,7 @@ import javax.validation.constraints.Positive;
 @Setter
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

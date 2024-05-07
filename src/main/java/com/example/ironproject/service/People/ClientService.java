@@ -28,12 +28,6 @@ public class ClientService {
     public List<Client> getAllClients(){
         return clientRepository.findAll();
     }
-
-    public List<Client> getAllClientsByHotel(int hotelId){
-        return null;
-        //return clientRepository.findClientsByHotel(hotelRepository.findByHotelId(hotelId));
-    }
-
     public Optional<Client> getClientById(String id){
         return clientRepository.findByDNI(id);
     }

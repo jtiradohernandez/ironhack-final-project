@@ -16,12 +16,13 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name="id")
 public class FacilityBooking extends Bookings {
     @ManyToOne
     @JoinColumn(name="worker_assigned")
     private Employee workerAssigned;
     @NotEmpty(message = "The booking must be assigned to a service")
+    @Enumerated(EnumType.STRING)
     private Service service;
     @NotEmpty(message = "The booking must be assigned to a slot")
     @Future

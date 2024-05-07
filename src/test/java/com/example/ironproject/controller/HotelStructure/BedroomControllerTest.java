@@ -1,6 +1,7 @@
 package com.example.ironproject.controller.HotelStructure;
 
 import com.example.ironproject.DTO.HotelStructure.BedroomDTO;
+import com.example.ironproject.controller.BaseTest;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.repository.HotelStructure.BedroomRepository;
@@ -26,17 +27,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
-@AutoConfigureMockMvc
-class BedroomControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+class BedroomControllerTest extends BaseTest {
     @Autowired
     private BedroomRepository bedroomRepository;
     @Autowired
     private HotelRepository hotelRepository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
     private Hotel hotel;
     private Hotel hotel2;
     private Bedroom bedroom1;
@@ -48,9 +45,10 @@ class BedroomControllerTest {
     private Bedroom bedroom7;
     private int bedroomId;
     private int bedroomId1;
+    private String token;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         hotel = new Hotel("Hotel Outer Wilds", "Santuario","Superficie","Hondonada Frágil",100);
         hotelRepository.save(hotel);
         hotel2 = new Hotel("Wild Resort", "Estudio","Centro","Hondonada Frágil",100);
@@ -69,6 +67,7 @@ class BedroomControllerTest {
         bedroomRepository.save(bedroom5);
         bedroomRepository.save(bedroom6);
         bedroomRepository.save(bedroom7);
+        token = login("daku","12345678");
     }
 
     @AfterEach
@@ -79,7 +78,7 @@ class BedroomControllerTest {
 
     @Test
     void userCanGetBedrooms() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/bedrooms"))
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/bedrooms").header("authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -95,7 +94,7 @@ class BedroomControllerTest {
     @Test
     void userCanGetBedroomById() throws Exception {
         int bedroomId = bedroom1.getRoomId();
-        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/bedrooms/"+bedroomId))
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/bedrooms/"+bedroomId).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -110,7 +109,7 @@ class BedroomControllerTest {
 
     @Test
     void userCanGetBedroomByHotelId() throws Exception{
-        MvcResult mvcResult = this.mockMvc.perform(get("/hotel/"+hotel.getHotelId()+"/bedrooms"))
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/"+hotel.getHotelId()+"/bedrooms").header("authorization", "Bearer " + token))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
@@ -129,7 +128,7 @@ class BedroomControllerTest {
         List<Bedroom> bedroomList = new ArrayList<Bedroom>();
         bedroomList.add(bedroom1);
         String body = objectMapper.writeValueAsString(bedroomList);
-        MvcResult mvcResult = mockMvc.perform(post("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(post("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("100"));
     }
 
@@ -141,7 +140,7 @@ class BedroomControllerTest {
         bedroomList.add(bedroom1);
         bedroomList.add(bedroom2);
         String body = objectMapper.writeValueAsString(bedroomList);
-        MvcResult mvcResult = mockMvc.perform(post("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(post("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isCreated()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("100"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("101"));
     }
@@ -157,7 +156,7 @@ class BedroomControllerTest {
         values.setFloor(2);
         bedroomList.add(values);
         String body = objectMapper.writeValueAsString(bedroomList);
-        MvcResult mvcResult = mockMvc.perform(patch("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("201"));
@@ -184,7 +183,7 @@ class BedroomControllerTest {
         bedroomList.add(values1);
         bedroomList.add(values2);
         String body = objectMapper.writeValueAsString(bedroomList);
-        MvcResult mvcResult = mockMvc.perform(patch("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("201"));
@@ -199,7 +198,7 @@ class BedroomControllerTest {
         Integer roomId = bedroom1.getRoomId();
         roomList.add(roomId);
         String body = objectMapper.writeValueAsString(roomList);
-        MvcResult mvcResult = mockMvc.perform(delete("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(bedroomRepository.findByRoomId(bedroom1.getRoomId()).isPresent());
     }
@@ -211,7 +210,7 @@ class BedroomControllerTest {
         roomList.add(bedroom3.getRoomId());
         roomList.add(bedroom4.getRoomId());
         String body = objectMapper.writeValueAsString(roomList);
-        MvcResult mvcResult = mockMvc.perform(delete("/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(bedroomRepository.findByRoomId(bedroom1.getRoomId()).isPresent());
         assertFalse(bedroomRepository.findByRoomId(bedroom3.getRoomId()).isPresent());

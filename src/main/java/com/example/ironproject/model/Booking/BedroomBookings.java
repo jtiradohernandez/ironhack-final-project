@@ -5,6 +5,7 @@ import com.example.ironproject.model.People.Client;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name="id")
 public class BedroomBookings extends Bookings{
     @NotEmpty(message = "The booking must have an arrival date")
     @Future

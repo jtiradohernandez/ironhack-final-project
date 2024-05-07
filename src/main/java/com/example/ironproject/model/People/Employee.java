@@ -15,9 +15,10 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name="id")
 public class Employee extends Person{
     @NotEmpty(message = "employee must have a job assigned")
+    @Enumerated(EnumType.STRING)
     private Jobs job;
     @ManyToOne
     @JoinColumn(name="role_employee")

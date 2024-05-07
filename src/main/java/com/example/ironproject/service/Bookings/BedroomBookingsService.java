@@ -28,8 +28,7 @@ public class BedroomBookingsService {
     }
 
     public BedroomBookings getAllBedroomBookingsOfHotel(int hotelId) {
-        return null;
-        //return bedroomBookingsRepository.findBedroomBookingByHotelId(hotelId);
+        return bedroomBookingsRepository.findBedroomBookingByHotelId(hotelId);
     }
 
     public BedroomBookings addBedroomBooking(BedroomBookings bedroomBooking) {

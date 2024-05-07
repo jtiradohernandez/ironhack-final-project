@@ -15,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 @NoArgsConstructor
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 abstract class Bookings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

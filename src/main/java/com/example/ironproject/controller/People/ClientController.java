@@ -37,12 +37,6 @@ public class ClientController {
         return clientService.getClientById(clientId);
     }
 
-    @GetMapping("/{id}/clients")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Client> getClientByHotelId(@PathVariable(name="id") int hotelId) {
-        return clientService.getAllClientsByHotel(hotelId);
-    }
-
     @PostMapping("/clients")
     @ResponseStatus(HttpStatus.CREATED)
     public Client addClient(@RequestBody @Valid Client client) {

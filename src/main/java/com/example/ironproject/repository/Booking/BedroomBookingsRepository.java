@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface BedroomBookingsRepository extends JpaRepository<BedroomBookings, String> {
     Optional<BedroomBookings> findBedroomBookingsByBookingId(int bedroomBookingId);
 
-    //@Query("SELECT * FROM bedroomBooking")
-    //BedroomBookings findBedroomBookingByHotelId(int hotelId); //TODO crear una busqueda que relacione habitaciones con hotel
+    //@Query("SELECT * FROM bedroomBooking INNER JOIN Bedroom ON bedroomBooking.roomBooked = Bedroom.roomId WHERE Bedroom.roomOfHotel = :hotelId")
+    @Query(value = "SELECT * FROM bedroom_bookings INNER JOIN bookings ON bedroom_bookings.id = bookings.booking_id INNER JOIN room ON bookings.room_booked = room.room_id WHERE room.room_of_hotel = :hotelId", nativeQuery=true)
+    BedroomBookings findBedroomBookingByHotelId(int hotelId);
 }

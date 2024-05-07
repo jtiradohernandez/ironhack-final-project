@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+@PrimaryKeyJoinColumn(name="id")
 public class Client extends Person{
     @NotEmpty(message = "client should have a origin")
     private String Origin;
