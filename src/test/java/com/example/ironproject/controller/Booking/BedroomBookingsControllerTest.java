@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class BedroomBookingsControllerTest extends BaseTest {
+class BedroomBookingsControllerTest extends BaseTest {
     @BeforeEach
     public void setUp() throws Exception {
         createTestingBedroomBookings();

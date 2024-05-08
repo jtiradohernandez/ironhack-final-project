@@ -68,20 +68,21 @@ public class BaseTest {
     protected Bedroom bedroom1, bedroom2, bedroom3, bedroom4, bedroom5, bedroom6, bedroom7;
     protected int bedroomId, bedroomId1;
     protected Client client1, client2, client3, client4, client5;
-    protected int clientId, clientId1;
+    protected String clientId, clientId1;
     protected Employee employee1, employee2, employee3, employee4, employee5;
-    protected int employeeId, employeeId1;
+    protected String employeeId, employeeId1;
     protected BedroomBookings bedroomBooking1, bedroomBooking2,bedroomBooking3,bedroomBooking4,bedroomBooking5;
     protected int bedroomBookingId, bedroomBookingId1;
     protected FacilityBooking facilityBooking1,facilityBooking2,facilityBooking3,facilityBooking4,facilityBooking5;
     protected int facilityBookingId, facilityBookingId1;
+
+    Date date;
 
 
     @BeforeAll
     protected void initialSetUp() throws Exception {
         token = login("daku","12345678");
     }
-
 
     protected String login(String username, String password) throws Exception {
         MvcResult result = this.mockMvc.perform(get("/api/login?username="+username+"&password="+password))
@@ -137,8 +138,7 @@ public class BaseTest {
     }
 
     protected void createTestingClients(){
-        long ms = 900000000;
-        Date date = new Date(ms);
+        date = new Date(90, 8, 2);
         client1 = new Client("1234","Esker",date, "Lumbre");
         client2 = new Client("1362","Riebeck",date, "Hondonada Frágil");
         client3 = new Client("7654","Feldespato",date, "Lumbre");
@@ -152,13 +152,10 @@ public class BaseTest {
     }
 
     protected void createTestingEmployees(){
-        long ms = 900000000;
-        Date date = new Date(ms);
+        date = new Date(90, 8, 2);
         Role admin = new Role("ROLE_ADMIN");
         Role employee = new Role("ROLE_EMPLOYEE");
         employee1 = new Employee("1234","Solanum",date, Jobs.Reception,admin, "Solanum","12345678");
-        employee2 = new Employee("59595959", "Thais", date, Jobs.Cleaning, employee, "comolainfusion","12345678");
-        employee3 = new Employee("5676","Xavi",date, Jobs.Reception,admin, "Xavi","12345678");
         employee4 = new Employee("9876","Ricard",date, Jobs.Cleaning,employee, "Ricard","12345678");
         employee5 = new Employee("6543","Victor",date, Jobs.Cleaning,employee, "Victor","12345678");
         employeeRepository.save(employee1);
@@ -172,8 +169,7 @@ public class BaseTest {
         createTestingFacilities();
         createTestingEmployees();
         createTestingClients();
-        long ms = 900000000;
-        Date date = new Date(ms);
+        date = new Date(90, 8, 2);
         facilityBooking1 = new FacilityBooking(gym1,client1, Service.Gym, date);
         facilityBooking1 = new FacilityBooking(gym1,client2, Service.Gym, date);
         facilityBooking1 = new FacilityBooking(gym2,client3, Service.Gym, date);
@@ -192,13 +188,13 @@ public class BaseTest {
     protected void createTestingBedroomBookings(){
         createTestingBedrooms();
         createTestingClients();
-        long ms = 900000000;
-        Date date = new Date(ms);
-        bedroomBooking1 = new BedroomBookings(bedroom1, client1,date,date);
-        bedroomBooking2 = new BedroomBookings(bedroom1, client2,date,date);
-        bedroomBooking3 = new BedroomBookings(bedroom2, client3,date,date);
-        bedroomBooking4 = new BedroomBookings(bedroom3, client4,date,date);
-        bedroomBooking5 = new BedroomBookings(bedroom4, client1,date,date);
+        Date arrivalDate = new Date(125, 8, 30);
+        Date departureDate = new Date(125, 8, 30);
+        bedroomBooking1 = new BedroomBookings(bedroom1, client1,arrivalDate,departureDate);
+        bedroomBooking2 = new BedroomBookings(bedroom1, client2,arrivalDate,departureDate);
+        bedroomBooking3 = new BedroomBookings(bedroom2, client3,arrivalDate,departureDate);
+        bedroomBooking4 = new BedroomBookings(bedroom3, client4,arrivalDate,departureDate);
+        bedroomBooking5 = new BedroomBookings(bedroom4, client1,arrivalDate,departureDate);
         bedroomBookingsRepository.save(bedroomBooking1);
         bedroomBookingsRepository.save(bedroomBooking2);
         bedroomBookingsRepository.save(bedroomBooking3);
