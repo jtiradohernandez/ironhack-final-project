@@ -1,6 +1,8 @@
 package com.example.ironproject.controller.Person;
 
+import com.example.ironproject.DTO.People.EmployeeDTO;
 import com.example.ironproject.controller.BaseTest;
+import com.example.ironproject.enumeration.Jobs;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -67,12 +69,32 @@ class EmployeeControllerTest extends BaseTest {
         assertFalse(mvcResult.getResponse().getContentAsString().contains("Victor"));
     }
 
+    @Test
+    void userCanUpdateEmployee() throws Exception{
+        createTestingHotels();
+        EmployeeDTO employeeToUpdate = new EmployeeDTO();
+        employeeId = employee1.getDNI();
+        employeeToUpdate.setDNI(employeeId);
+        employeeToUpdate.setJob(Jobs.Cleaning);
+        employeeToUpdate.setHotelAssigned(hotel);
+        String body = objectMapper.writeValueAsString(employeeToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk()).andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Cleaning"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Hotel Outer Wilds"));
+    }
 
+    @Test
+    void userCanUpdateEmployeePassword() throws Exception{
+        String newPassword = "newpassword1234";
+        employeeId = employee1.getDNI();
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees/"+employeeId+"/"+newPassword).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk()).andReturn();
+    }
     @Test
     void userCanDeleteEmployee() throws Exception{
         employeeId = employee1.getDNI();
-        String body = objectMapper.writeValueAsString(employeeId);
-        mockMvc.perform(delete("/api/hotel/employees").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+        mockMvc.perform(delete("/api/hotel/employees/"+employeeId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(employeeRepository.findByDNI(employeeId).isPresent());
     }

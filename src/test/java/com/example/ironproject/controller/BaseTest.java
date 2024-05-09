@@ -18,8 +18,10 @@ import com.example.ironproject.repository.HotelStructure.HotelRepository;
 import com.example.ironproject.repository.People.ClientRepository;
 import com.example.ironproject.repository.People.EmployeeRepository;
 import com.example.ironproject.repository.Security.RoleRepository;
+import com.example.ironproject.service.People.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
@@ -55,6 +57,8 @@ public class BaseTest {
     @Autowired
     protected EmployeeRepository employeeRepository;
     @Autowired
+    protected UserService userService;
+    @Autowired
     protected BedroomBookingsRepository bedroomBookingsRepository;
     @Autowired
     protected FacilityBookingRepository facilityBookingRepository;
@@ -71,6 +75,8 @@ public class BaseTest {
     protected String clientId, clientId1;
     protected Employee employee1, employee2, employee3, employee4, employee5;
     protected String employeeId, employeeId1;
+    protected static Role admin = new Role("ROLE_ADMIN");
+    protected static Role employee = new Role("ROLE_EMPLOYEE");
     protected BedroomBookings bedroomBooking1, bedroomBooking2,bedroomBooking3,bedroomBooking4,bedroomBooking5;
     protected int bedroomBookingId, bedroomBookingId1;
     protected FacilityBooking facilityBooking1,facilityBooking2,facilityBooking3,facilityBooking4,facilityBooking5;
@@ -81,7 +87,20 @@ public class BaseTest {
 
     @BeforeAll
     protected void initialSetUp() throws Exception {
+        createTestingEmployees();
         token = login("daku","12345678");
+    }
+
+    @AfterAll
+    protected void finalSetUp() throws Exception {
+        /*bedroomRepository.deleteAll();
+        facilityRepository.deleteAll();
+        hotelRepository.deleteAll();
+        clientRepository.deleteAll();
+        employeeRepository.deleteAll();
+        bedroomBookingsRepository.deleteAll();
+        facilityBookingRepository.deleteAll();
+        roleRepository.deleteAll();*/
     }
 
     protected String login(String username, String password) throws Exception {
@@ -152,17 +171,24 @@ public class BaseTest {
     }
 
     protected void createTestingEmployees(){
+        createRoles();
         date = new Date(90, 8, 2);
-        Role admin = new Role("ROLE_ADMIN");
-        Role employee = new Role("ROLE_EMPLOYEE");
-        employee1 = new Employee("1234","Solanum",date, Jobs.Reception,admin, "Solanum","12345678");
+        employee1 = new Employee("1235","Solanum",date, Jobs.Reception,admin, "Solanum","12345678");
+        employee2 = new Employee("48484848", "Xavi Tirado", date, Jobs.Reception, admin, "daku", "12345678");
+        employee3 = new Employee("59595959", "Thais Real", date, Jobs.Cleaning, employee, "comolainfusion","12345678");
         employee4 = new Employee("9876","Ricard",date, Jobs.Cleaning,employee, "Ricard","12345678");
         employee5 = new Employee("6543","Victor",date, Jobs.Cleaning,employee, "Victor","12345678");
-        employeeRepository.save(employee1);
-        employeeRepository.save(employee2);
-        employeeRepository.save(employee3);
-        employeeRepository.save(employee4);
-        employeeRepository.save(employee5);
+        userService.addEmployee(employee1);
+        userService.addEmployee(employee1);
+        userService.addEmployee(employee2);
+        userService.addEmployee(employee3);
+        userService.addEmployee(employee4);
+        userService.addEmployee(employee5);
+    }
+
+    protected void createRoles(){
+        roleRepository.save(admin);
+        roleRepository.save(employee);
     }
 
     protected void createTestingFacilityBookings(){
@@ -171,10 +197,10 @@ public class BaseTest {
         createTestingClients();
         date = new Date(90, 8, 2);
         facilityBooking1 = new FacilityBooking(gym1,client1, Service.Gym, date);
-        facilityBooking1 = new FacilityBooking(gym1,client2, Service.Gym, date);
-        facilityBooking1 = new FacilityBooking(gym2,client3, Service.Gym, date);
-        facilityBooking1 = new FacilityBooking(sauna,client4, Service.Cleaning, date);
-        facilityBooking1 = new FacilityBooking(restaurant1,client5, Service.Cleaning, date);
+        facilityBooking2 = new FacilityBooking(gym1,client2, Service.Gym, date);
+        facilityBooking3 = new FacilityBooking(gym2,client3, Service.Gym, date);
+        facilityBooking4 = new FacilityBooking(sauna,client4, Service.Cleaning, date);
+        facilityBooking5 = new FacilityBooking(restaurant1,client5, Service.Cleaning, date);
         facilityBooking1.setWorkerAssigned(employee1);
         facilityBooking2.setWorkerAssigned(employee3);
         facilityBooking3.setWorkerAssigned(employee5);
@@ -188,17 +214,26 @@ public class BaseTest {
     protected void createTestingBedroomBookings(){
         createTestingBedrooms();
         createTestingClients();
-        Date arrivalDate = new Date(125, 8, 30);
-        Date departureDate = new Date(125, 8, 30);
-        bedroomBooking1 = new BedroomBookings(bedroom1, client1,arrivalDate,departureDate);
-        bedroomBooking2 = new BedroomBookings(bedroom1, client2,arrivalDate,departureDate);
-        bedroomBooking3 = new BedroomBookings(bedroom2, client3,arrivalDate,departureDate);
-        bedroomBooking4 = new BedroomBookings(bedroom3, client4,arrivalDate,departureDate);
-        bedroomBooking5 = new BedroomBookings(bedroom4, client1,arrivalDate,departureDate);
+        Date arrivalDate1 = new Date(125, 5, 30);
+        Date departureDate1 = new Date(125, 6, 10);
+        Date arrivalDate2 = new Date(125, 8, 25);
+        Date departureDate2 = new Date(125, 8, 30);
+        Date arrivalDate3 = new Date(125, 9, 15);
+        Date departureDate3 = new Date(125, 9, 30);
+        bedroomBooking1 = new BedroomBookings(bedroom1, client1,arrivalDate1,departureDate1);
+        bedroomBooking2 = new BedroomBookings(bedroom1, client2,arrivalDate2,departureDate2);
+        bedroomBooking3 = new BedroomBookings(bedroom2, client3,arrivalDate3,departureDate3);
+        bedroomBooking4 = new BedroomBookings(bedroom3, client4,arrivalDate1,departureDate3);
+        bedroomBooking5 = new BedroomBookings(bedroom6, client1,arrivalDate2,departureDate3);
         bedroomBookingsRepository.save(bedroomBooking1);
         bedroomBookingsRepository.save(bedroomBooking2);
         bedroomBookingsRepository.save(bedroomBooking3);
         bedroomBookingsRepository.save(bedroomBooking4);
         bedroomBookingsRepository.save(bedroomBooking5);
     }
+
+
 }
+
+
+//8 20 al 29

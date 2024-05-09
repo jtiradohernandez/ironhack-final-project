@@ -26,12 +26,6 @@ class BedroomControllerTest extends BaseTest {
          createTestingBedrooms();
     }
 
-    @AfterEach
-    void tearDown() {
-        bedroomRepository.deleteAll();
-        hotelRepository.deleteAll();
-    }
-
     @Test
     void userCanGetBedrooms() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/bedrooms").header("authorization", "Bearer " + token))
@@ -106,7 +100,6 @@ class BedroomControllerTest extends BaseTest {
         List<BedroomDTO> bedroomList = new ArrayList<BedroomDTO>();
         BedroomDTO values = new BedroomDTO();
         values.setRoomId(bedroom4.getRoomId());
-        values.setAvailability(false);
         values.setCapacity(1);
         values.setRoomNumber(201);
         values.setFloor(2);
@@ -114,7 +107,6 @@ class BedroomControllerTest extends BaseTest {
         String body = objectMapper.writeValueAsString(bedroomList);
         MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
-        assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("201"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("2"));
     }
@@ -127,21 +119,19 @@ class BedroomControllerTest extends BaseTest {
         bedroomId = bedroom4.getRoomId();
         bedroomId1 = bedroom6.getRoomId();
         values1.setRoomId(bedroomId);
-        values1.setAvailability(false);
         values1.setCapacity(1);
         values1.setRoomNumber(201);
         values1.setFloor(2);
         values2.setRoomId(bedroomId1);
-        values2.setAvailability(false);
         values2.setCapacity(5);
         values2.setRoomNumber(202);
         values2.setFloor(2);
         bedroomList.add(values1);
         bedroomList.add(values2);
         String body = objectMapper.writeValueAsString(bedroomList);
+        System.out.println(body);
         MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/bedrooms").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
-        assertTrue(mvcResult.getResponse().getContentAsString().contains("false"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("201"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("2"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("202"));

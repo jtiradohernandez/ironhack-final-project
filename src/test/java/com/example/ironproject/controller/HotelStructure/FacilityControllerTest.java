@@ -36,12 +36,6 @@ class FacilityControllerTest extends BaseTest {
         createTestingFacilities();
     }
 
-    @AfterEach
-    void tearDown() {
-        facilityRepository.deleteAll();
-        hotelRepository.deleteAll();
-    }
-
     @Test
     void userCanGetFacilities() throws Exception {
         MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/facilities").header("authorization", "Bearer " + token))

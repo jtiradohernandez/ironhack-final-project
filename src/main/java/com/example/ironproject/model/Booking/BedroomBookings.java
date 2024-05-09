@@ -1,11 +1,9 @@
 package com.example.ironproject.model.Booking;
 
 import com.example.ironproject.model.HotelStructure.Bedroom;
+import com.example.ironproject.model.HotelStructure.Room;
 import com.example.ironproject.model.People.Client;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,9 +24,13 @@ public class BedroomBookings extends Bookings{
     @NotEmpty(message = "The booking must have a departure date")
     @Future
     private Date departureDate;
+    @ManyToOne
+    @JoinColumn(name="bedroom_booked")
+    private Bedroom roomBooked;
 
     public BedroomBookings(Bedroom room, Client client, Date arrivalDate, Date departureDate) {
-        super(room, client);
+        super(client);
+        this.roomBooked = room;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
     }

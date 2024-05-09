@@ -34,11 +34,6 @@ class HotelControllerTest extends BaseTest {
         createTestingHotels();
     }
 
-    @AfterEach
-    void tearDown() {
-        hotelRepository.deleteAll();
-    }
-
     @Test
     void userCanGetHotels() throws Exception{
         MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel").header("authorization", "Bearer " + token))

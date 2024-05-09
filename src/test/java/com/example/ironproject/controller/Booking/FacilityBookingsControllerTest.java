@@ -1,9 +1,24 @@
 package com.example.ironproject.controller.Booking;
 
+import com.example.ironproject.DTO.Booking.FacilityBookingDTO;
 import com.example.ironproject.controller.BaseTest;
+import com.example.ironproject.model.Booking.Service;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class FacilityBookingsControllerTest extends BaseTest {
@@ -14,5 +29,80 @@ class FacilityBookingsControllerTest extends BaseTest {
     @AfterEach
     void tearDown() {
         facilityBookingRepository.deleteAll();
+    }
+
+    @Test
+    void userCanGetFacilityBooking() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/facilities/bookings").header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Gimnasio hondonada"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Gimnasio nomai"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Sauna"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Restaurante Hondonada"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Restaurante Nomai"));
+    }
+
+    @Test
+    void userCanGetFacilityBookingById() throws Exception {
+        facilityBookingId = facilityBooking1.getBookingId();
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/facilities/bookings/"+facilityBookingId).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Gimnasio hondonada"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Gimnasio nomai"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Sauna"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Restaurante Hondonada"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Restaurante Nomai"));
+    }
+
+    @Test
+    void userCanGetFacilityBookingByHotelId() throws Exception {
+        hotelId = hotel2.getHotelId();
+        facilityBookingId = facilityBooking1.getBookingId();
+        facilityBookingId1 = facilityBooking3.getBookingId();
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/"+hotelId+"/facilities/bookings").header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        assertFalse(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId)));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId1)));
+    }
+
+    @Test
+    void userCanAddFacilityBooking() throws Exception{
+        String body = objectMapper.writeValueAsString(facilityBooking1);
+        MvcResult mvcResult = mockMvc.perform(post("/api/hotel/facilities/bookings").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isCreated()).andReturn();
+        int bookingId = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.bookingId");
+        assertTrue(facilityBookingRepository.findFacilityBookingByBookingId(bookingId).isPresent());
+    }
+
+    @Test
+    void userCanUpdateFacilityBooking() throws Exception{
+        FacilityBookingDTO bookingToUpdate = new FacilityBookingDTO();
+        facilityBookingId = facilityBooking1.getBookingId();
+        Date slot = new Date(125, 9, 20);
+        bookingToUpdate.setRoomBooked(sauna);
+        bookingToUpdate.setClientOfBooking(client5);
+        bookingToUpdate.setSlot(slot);
+        bookingToUpdate.setService(Service.Cleaning);
+        bookingToUpdate.setWorkerAssigned(employee3);
+        String body = objectMapper.writeValueAsString(bookingToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/facilities/bookings/"+facilityBookingId).content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk()).andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Sauna"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Thais Real"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Cleaning"));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Chert"));
+    }
+
+    @Test
+    void userCanDeleteFacilityBooking() throws Exception{
+        facilityBookingId = facilityBooking1.getBookingId();
+        mockMvc.perform(delete("/api/hotel/facilities/bookings/"+facilityBookingId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk()).andReturn();
+        assertFalse(facilityBookingRepository.findFacilityBookingByBookingId(facilityBookingId).isPresent());
     }
 }

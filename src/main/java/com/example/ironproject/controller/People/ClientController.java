@@ -49,9 +49,9 @@ public class ClientController {
         return clientService.updateClient(clientDTO);
     }
 
-    @DeleteMapping("/clients")
+    @DeleteMapping("/clients/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteClients(@RequestBody String clientID){
+    public void deleteClients(@PathVariable(name="id") String clientID){
         clientService.deleteClient(clientID);
     }
 }

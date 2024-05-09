@@ -9,5 +9,4 @@ import javax.validation.constraints.Positive;
 public class BedroomDTO extends RoomDTO {
     @Positive(message = "Room number cannot be negative or zero")
     private Integer roomNumber;
-    private Boolean availability;
 }

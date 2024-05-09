@@ -21,16 +21,12 @@ abstract class Bookings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
     @NotEmpty(message = "The booking must be assigned to a room")
-    @ManyToOne
-    @JoinColumn(name="room_booked")
-    private Room roomBooked;
     @NotEmpty(message = "The booking must be assigned to a client")
     @ManyToOne
     @JoinColumn(name="client_of_booking")
     private Client clientOfBooking;
 
-    public Bookings(Room room, Client client) {
-        this.roomBooked = room;
+    public Bookings(Client client) {
         this.clientOfBooking = client;
     }
 }

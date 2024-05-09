@@ -57,9 +57,6 @@ public class BedroomService {
             if(bedroomDTOs.get(i).getRoomNumber() != null){
                 bedroomUpdated.get().setRoomNumber(bedroomDTOs.get(i).getRoomNumber());
             }
-            if(bedroomDTOs.get(i).getAvailability() != null){
-                bedroomUpdated.get().setAvailability(bedroomDTOs.get(i).getAvailability());
-            }
             if(bedroomDTOs.get(i).getCapacity() != null){
                 bedroomUpdated.get().setCapacity(bedroomDTOs.get(i).getCapacity());
             }

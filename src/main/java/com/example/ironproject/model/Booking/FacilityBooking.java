@@ -1,6 +1,7 @@
 package com.example.ironproject.model.Booking;
 
 import com.example.ironproject.model.HotelStructure.Facility;
+import com.example.ironproject.model.HotelStructure.Room;
 import com.example.ironproject.model.People.Client;
 import com.example.ironproject.model.People.Employee;
 import jakarta.persistence.*;
@@ -27,9 +28,13 @@ public class FacilityBooking extends Bookings {
     @NotEmpty(message = "The booking must be assigned to a slot")
     @Future
     private Date slot;
+    @ManyToOne
+    @JoinColumn(name="facility_booked")
+    private Facility roomBooked;
 
     public FacilityBooking(Facility room, Client client, Service service, Date slot) {
-        super(room, client);
+        super(client);
+        this.roomBooked = room;
         this.service = service;
         this.slot = slot;
     }

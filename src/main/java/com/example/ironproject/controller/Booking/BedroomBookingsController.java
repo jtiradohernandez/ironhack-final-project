@@ -8,10 +8,12 @@ import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.service.Bookings.BedroomBookingsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +40,12 @@ public class BedroomBookingsController {
     @ResponseStatus(HttpStatus.OK)
     public BedroomBookings getBedroomBookingByHotelId(@PathVariable(name="id") int hotelId) {
         return bedroomBookingsService.getAllBedroomBookingsOfHotel(hotelId);
+    }
+
+    @GetMapping("/{id}/bedrooms/bookings/availability/{arrivalDate}/{departureDate}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Bedroom> getAvailableBedrooms(@PathVariable(name="id") int hotelId,@PathVariable(name="arrivalDate")@DateTimeFormat(pattern="yyyy-MM-dd") Date arrivalDate, @PathVariable(name="departureDate")@DateTimeFormat(pattern="yyyy-MM-dd") Date departureDate) {
+        return bedroomBookingsService.getAvailableBedrooms(hotelId,arrivalDate,departureDate);
     }
 
     @PostMapping("/bedrooms/bookings")

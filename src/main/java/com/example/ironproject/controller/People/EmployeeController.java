@@ -55,6 +55,12 @@ public class EmployeeController {
         return userService.updateEmployee(employeeDTO);
     }
 
+    @PatchMapping("/employees/{id}/{new_password}")
+    @ResponseStatus(HttpStatus.OK)
+    public Employee updateEmployeePassword(@PathVariable(name="id") String employeeId,@PathVariable(name="new_password") String newPassword){
+        return userService.updateEmployeePassword(employeeId,newPassword);
+    }
+
     @DeleteMapping("/employees/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteEmployee(@PathVariable(name="id") String employeeId){

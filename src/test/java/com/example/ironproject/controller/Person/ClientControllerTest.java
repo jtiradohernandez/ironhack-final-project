@@ -1,5 +1,6 @@
 package com.example.ironproject.controller.Person;
 
+import com.example.ironproject.DTO.People.ClientDTO;
 import com.example.ironproject.controller.BaseTest;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import org.junit.jupiter.api.AfterEach;
@@ -71,14 +72,25 @@ class ClientControllerTest extends BaseTest {
         assertFalse(mvcResult.getResponse().getContentAsString().contains("Feldespato"));
     }
 
+    @Test
+    void userCanUpdateClient() throws Exception{
+        ClientDTO clientToUpdate = new ClientDTO();
+        clientId = client1.getDNI();
+        clientToUpdate.setDNI(clientId);
+        clientToUpdate.setOrigin("Asia");
+        String body = objectMapper.writeValueAsString(clientToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/clients").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isOk()).andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Asia"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Lumbre"));
+    }
+
 
     @Test
     void userCanDeleteClient() throws Exception{
         clientId = client1.getDNI();
-        String body = objectMapper.writeValueAsString(clientId);
-        System.out.println(body);
-        mockMvc.perform(delete("/api/hotel/clients").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+        mockMvc.perform(delete("/api/hotel/clients/"+clientId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
-        //assertFalse(clientRepository.findByDNI(clientId).isPresent());
+        assertFalse(clientRepository.findByDNI(clientId).isPresent());
     }
 }

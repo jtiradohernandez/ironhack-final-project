@@ -120,7 +120,7 @@ public class UserService implements UserDetailsService {
 
     public Employee updateEmployeePassword(String id, String newPassword) {
         Employee user = employeeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Eployee " + id +" is not found"));
-        log.info("Saving new user {} to the database", user.getName());
+        log.info("Saving new password to the database");
         user.setPassword(passwordEncoder.encode(newPassword));
         return employeeRepository.save(user);
     }
