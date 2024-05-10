@@ -7,9 +7,12 @@ import com.example.ironproject.model.Booking.FacilityBooking;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.service.Bookings.BedroomBookingsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +26,7 @@ public class BedroomBookingsController {
 
     @Autowired
     BedroomBookingsService bedroomBookingsService;
+    protected final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/bedrooms/bookings")
     @ResponseStatus(HttpStatus.OK)
@@ -50,8 +54,13 @@ public class BedroomBookingsController {
 
     @PostMapping("/bedrooms/bookings")
     @ResponseStatus(HttpStatus.CREATED)
-    public BedroomBookings addBedroomBooking(@RequestBody @Valid BedroomBookings bedroomBooking) {
-        return bedroomBookingsService.addBedroomBooking(bedroomBooking);
+    public ResponseEntity<String> addBedroomBooking(@RequestBody @Valid BedroomBookings bedroomBooking) throws JsonProcessingException {
+        BedroomBookings bedroomBookingCreated = bedroomBookingsService.addBedroomBooking(bedroomBooking);
+        if(bedroomBookingCreated == null){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("The bedroom is unavailable for the date selected");
+        }else{
+            return ResponseEntity.status(HttpStatus.CREATED).body(objectMapper.writeValueAsString(bedroomBookingCreated));
+        }
     }
 
     @PatchMapping("/bedrooms/bookings/{id}")

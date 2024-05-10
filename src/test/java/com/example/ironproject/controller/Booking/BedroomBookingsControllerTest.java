@@ -90,10 +90,18 @@ class BedroomBookingsControllerTest extends BaseTest {
 
     @Test
     void userCanAddBedroomBooking() throws Exception{
+        bedroomBookingsRepository.delete(bedroomBooking1);
         String body = objectMapper.writeValueAsString(bedroomBooking1);
         MvcResult mvcResult = mockMvc.perform(post("/api/hotel/bedrooms/bookings").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isCreated()).andReturn();
         int bookingId = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.bookingId");
         assertTrue(bedroomBookingsRepository.findBedroomBookingsByBookingId(bookingId).isPresent());
+    }
+
+    @Test
+    void userCannotAddBedroomBooking() throws Exception{
+        String body = objectMapper.writeValueAsString(bedroomBooking1);
+        MvcResult mvcResult = mockMvc.perform(post("/api/hotel/bedrooms/bookings").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isConflict()).andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("The bedroom is unavailable for the date selected"));
     }
 
     @Test

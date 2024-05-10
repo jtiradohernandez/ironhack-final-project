@@ -1,6 +1,7 @@
 package com.example.ironproject.repository.Booking;
 
 import com.example.ironproject.model.Booking.BedroomBookings;
+import com.example.ironproject.model.HotelStructure.Bedroom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -21,5 +22,12 @@ public interface BedroomBookingsRepository extends JpaRepository<BedroomBookings
             "WHERE room.room_of_hotel = :hotelId " +
             "AND bedroom_bookings.arrival_date < :departureDate " +
             "AND bedroom_bookings.departure_date > :arrivalDate", nativeQuery=true)
-    List<Integer> findAvailableBedrooms(int hotelId, Date arrivalDate, Date departureDate);
+    List<Integer> findUnavailableBedrooms(int hotelId, Date arrivalDate, Date departureDate);
+
+    @Query(value = "SELECT bedroom_bookings.id FROM bedroom_bookings " +
+            "INNER JOIN bedroom ON bedroom.id = bedroom_bookings.bedroom_booked " +
+            "WHERE bedroom.id = :bedroomId " +
+            "AND bedroom_bookings.arrival_date < :departureDate " +
+            "AND bedroom_bookings.departure_date > :arrivalDate", nativeQuery=true)
+    Integer checkAvailability(int bedroomId, Date arrivalDate, Date departureDate);
 }

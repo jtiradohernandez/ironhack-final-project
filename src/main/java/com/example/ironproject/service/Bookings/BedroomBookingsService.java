@@ -36,7 +36,7 @@ public class BedroomBookingsService {
     }
 
     public List<Bedroom> getAvailableBedrooms(int hotelId, Date arrivalDate, Date departureDate){
-        List<Integer> unavailableBedroomsId = bedroomBookingsRepository.findAvailableBedrooms(hotelId,arrivalDate, departureDate);
+        List<Integer> unavailableBedroomsId = bedroomBookingsRepository.findUnavailableBedrooms(hotelId,arrivalDate, departureDate);
         List<Bedroom> allBedrooms = bedroomRepository.findAll();
         for(int i = 0; i < unavailableBedroomsId.size();i++) {
             for (int j = 0; j < allBedrooms.size();j++)
@@ -48,8 +48,11 @@ public class BedroomBookingsService {
     }
 
     public BedroomBookings addBedroomBooking(BedroomBookings bedroomBooking) {
-        //getAvailableBedrooms();
-        return bedroomBookingsRepository.save(bedroomBooking);
+        if(checkAvailability(bedroomBooking.getRoomBooked(),bedroomBooking.getArrivalDate(),bedroomBooking.getDepartureDate())){
+            return bedroomBookingsRepository.save(bedroomBooking);
+        }else{
+            return null;
+        }
     }
 
     public void deleteBedroomBooking(int bedroomBookingId) {
@@ -72,5 +75,14 @@ public class BedroomBookingsService {
             booking.setDepartureDate(newBooking.getDepartureDate());
         }
         return bedroomBookingsRepository.save(booking);
+    }
+
+    private boolean checkAvailability(Bedroom bedroom, Date arrivalDate, Date departureDate){
+        Integer desiredbedroomId = bedroomBookingsRepository.checkAvailability(bedroom.getRoomId(), arrivalDate, departureDate);
+        if (desiredbedroomId == null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
