@@ -26,10 +26,7 @@ class FacilityBookingsControllerTest extends BaseTest {
     public void setUp() throws Exception {
         createTestingFacilityBookings();
     }
-    @AfterEach
-    void tearDown() {
-        //facilityBookingRepository.deleteAll();
-    }
+
 
     @Test
     void userCanGetFacilityBooking() throws Exception {
@@ -67,16 +64,24 @@ class FacilityBookingsControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        assertFalse(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId)));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId)));
         assertTrue(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId1)));
     }
 
     @Test
     void userCanAddFacilityBooking() throws Exception{
+        facilityBookingRepository.delete(facilityBooking1);
         String body = objectMapper.writeValueAsString(facilityBooking1);
         MvcResult mvcResult = mockMvc.perform(post("/api/hotel/facilities/bookings").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isCreated()).andReturn();
         int bookingId = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.bookingId");
         assertTrue(facilityBookingRepository.findFacilityBookingByBookingId(bookingId).isPresent());
+    }
+
+    @Test
+    void userCannotAddBedroomBooking() throws Exception{
+        String body = objectMapper.writeValueAsString(facilityBooking1);
+        MvcResult mvcResult = mockMvc.perform(post("/api/hotel/facilities/bookings").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token)).andExpect(status().isConflict()).andReturn();
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("The facility is unavailable for the slot selected"));
     }
 
     @Test

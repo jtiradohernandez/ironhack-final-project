@@ -21,10 +21,10 @@ class ClientControllerTest extends BaseTest {
     public void setUp() throws Exception {
         createTestingClients();
     }
-    @AfterEach
+    /*@AfterEach
     void tearDown() {
         clientRepository.deleteAll();
-    }
+    }*/
 
     @Test
     void userCanGetClients() throws Exception {

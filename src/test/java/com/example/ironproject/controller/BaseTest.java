@@ -32,6 +32,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -182,12 +183,52 @@ public class BaseTest {
         createTestingFacilities();
         createTestingEmployees();
         createTestingClients();
-        date = new Date(90, 8, 2);
-        facilityBooking1 = new FacilityBooking(gym1,client1, Service.Gym, date);
-        facilityBooking2 = new FacilityBooking(gym1,client2, Service.Gym, date);
-        facilityBooking3 = new FacilityBooking(gym2,client3, Service.Gym, date);
-        facilityBooking4 = new FacilityBooking(sauna,client4, Service.Cleaning, date);
-        facilityBooking5 = new FacilityBooking(restaurant1,client5, Service.Cleaning, date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.AUGUST);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MILLISECOND,00);
+        Date date1 = calendar.getTime();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.AUGUST);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MILLISECOND,00);
+        Date date2 = calendar.getTime();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.AUGUST);
+        calendar.set(Calendar.DAY_OF_MONTH, 16);
+        calendar.set(Calendar.HOUR_OF_DAY, 20);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MILLISECOND,00);
+        Date date3 = calendar.getTime();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.JANUARY);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MILLISECOND,00);
+        Date date4 = calendar.getTime();
+        calendar.set(Calendar.YEAR, 2024);
+        calendar.set(Calendar.MONTH, Calendar.SEPTEMBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 14);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND,00);
+        calendar.set(Calendar.MILLISECOND,00);
+        Date date5 = calendar.getTime();
+        facilityBooking1 = new FacilityBooking(gym1,client1, Service.Gym, date1);
+        facilityBooking2 = new FacilityBooking(gym1,client2, Service.Gym, date2);
+        facilityBooking3 = new FacilityBooking(gym2,client3, Service.Gym, date3);
+        facilityBooking4 = new FacilityBooking(sauna,client4, Service.Cleaning, date4);
+        facilityBooking5 = new FacilityBooking(restaurant1,client5, Service.Cleaning, date5);
         facilityBooking1.setWorkerAssigned(employee1);
         facilityBooking2.setWorkerAssigned(employee3);
         facilityBooking3.setWorkerAssigned(employee5);
@@ -218,6 +259,4 @@ public class BaseTest {
         bedroomBookingsRepository.save(bedroomBooking4);
         bedroomBookingsRepository.save(bedroomBooking5);
     }
-
-
 }

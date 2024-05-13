@@ -24,7 +24,7 @@ public class BedroomBookingsController {
 
     @Autowired
     BedroomBookingsService bedroomBookingsService;
-    protected final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/bedrooms/bookings")
     @ResponseStatus(HttpStatus.OK)

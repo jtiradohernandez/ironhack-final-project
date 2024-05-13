@@ -9,5 +9,4 @@ import java.util.Date;
 public class FacilityDTO extends RoomDTO {
     private String name;
     private Boolean canBeBooked;
-    private ArrayList<Date> openingHours;
 }

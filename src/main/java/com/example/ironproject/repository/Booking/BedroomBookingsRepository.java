@@ -26,7 +26,7 @@ public interface BedroomBookingsRepository extends JpaRepository<BedroomBookings
     @Query(value = "SELECT bedroom_bookings.id FROM bedroom_bookings " +
             "INNER JOIN bedroom ON bedroom.id = bedroom_bookings.bedroom_booked " +
             "WHERE bedroom.id = :bedroomId " +
-            "AND bedroom_bookings.arrival_date < :departureDate " +
-            "AND bedroom_bookings.departure_date > :arrivalDate", nativeQuery=true)
+            "AND bedroom_bookings.arrival_date <= :departureDate " +
+            "AND bedroom_bookings.departure_date >= :arrivalDate", nativeQuery=true)
     Integer checkAvailability(int bedroomId, Date arrivalDate, Date departureDate);
 }

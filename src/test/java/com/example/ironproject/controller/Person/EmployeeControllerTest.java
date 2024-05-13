@@ -22,10 +22,10 @@ class EmployeeControllerTest extends BaseTest {
     public void setUp() throws Exception {
         createTestingEmployees();
     }
-    @AfterEach
+    /*@AfterEach
     void tearDown() {
         employeeRepository.deleteAll();
-    }
+    }*/
 
     @Test
     void userCanGetEmployees() throws Exception {
@@ -88,7 +88,7 @@ class EmployeeControllerTest extends BaseTest {
     void userCanUpdateEmployeePassword() throws Exception{
         String newPassword = "newpassword1234";
         employeeId = employee1.getDNI();
-        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees/"+employeeId+"/"+newPassword).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees/password/"+employeeId+"/"+newPassword).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
     }
     @Test

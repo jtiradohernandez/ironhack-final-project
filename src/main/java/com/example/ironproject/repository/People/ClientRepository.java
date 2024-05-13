@@ -8,7 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, String>{
-
-
     Optional<Client> findByDNI(String id);
 }

@@ -58,9 +58,6 @@ public class FacilityService {
             if(facilitiesDTOs.get(i).getCanBeBooked() != null){
                 facilityUpdated.get().setCanBeBooked(facilitiesDTOs.get(i).getCanBeBooked());
             }
-            if(facilitiesDTOs.get(i).getOpeningHours() != null){
-                facilityUpdated.get().setOpeningHours(facilitiesDTOs.get(i).getOpeningHours());
-            }
             if(facilitiesDTOs.get(i).getCapacity() != null){
                 facilityUpdated.get().setCapacity(facilitiesDTOs.get(i).getCapacity());
             }

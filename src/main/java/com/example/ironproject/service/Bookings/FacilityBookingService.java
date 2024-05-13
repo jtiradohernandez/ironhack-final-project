@@ -2,12 +2,16 @@ package com.example.ironproject.service.Bookings;
 
 import com.example.ironproject.DTO.Booking.FacilityBookingDTO;
 import com.example.ironproject.model.Booking.FacilityBooking;
+import com.example.ironproject.model.HotelStructure.Bedroom;
+import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.repository.Booking.FacilityBookingRepository;
+import com.example.ironproject.repository.HotelStructure.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,10 @@ import java.util.Optional;
 public class FacilityBookingService {
     @Autowired
     FacilityBookingRepository facilityBookingRepository;
+
+    @Autowired
+    FacilityRepository facilityRepository;
+
     public List<FacilityBooking> getAllFacilityBookings() {
         return facilityBookingRepository.findAll();
     }
@@ -28,7 +36,23 @@ public class FacilityBookingService {
     }
 
     public FacilityBooking addFacilityBooking(FacilityBooking facilityBooking) {
-        return facilityBookingRepository.save(facilityBooking);
+        if(checkAvailability(facilityBooking.getRoomBooked(),facilityBooking.getSlot(),facilityBooking.getSlot())){
+            return facilityBookingRepository.save(facilityBooking);
+        }else{
+            return null;
+        }
+    }
+
+    public List<Facility> getAvailableFacilities(int hotelId, Date initialDate, Date finishDate){
+        List<Integer> unavailableFacilityId = facilityBookingRepository.findUnavailableFacilities(hotelId,initialDate, finishDate);
+        List<Facility> allFacilities = facilityRepository.findAll();
+        for(int i = 0; i < unavailableFacilityId.size();i++) {
+            for (int j = 0; j < allFacilities.size();j++)
+                if (unavailableFacilityId.get(i) == allFacilities.get(j).getRoomId()){
+                    allFacilities.remove(j);
+                }
+        }
+        return allFacilities;
     }
 
     public void deleteFacility(int facilityBookingId) {
@@ -54,5 +78,14 @@ public class FacilityBookingService {
             booking.setSlot(newBooking.getSlot());
         }
         return facilityBookingRepository.save(booking);
+    }
+
+    private boolean checkAvailability(Facility facility, Date initialDate, Date finishDate){
+        Integer desiredBedroomId = facilityBookingRepository.checkAvailability(facility.getRoomId(), initialDate, finishDate);
+        if (desiredBedroomId == null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

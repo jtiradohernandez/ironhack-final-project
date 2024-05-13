@@ -2,13 +2,16 @@ package com.example.ironproject.model.Booking;
 
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.People.Client;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Getter

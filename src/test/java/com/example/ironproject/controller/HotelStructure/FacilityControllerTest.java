@@ -3,6 +3,7 @@ package com.example.ironproject.controller.HotelStructure;
 import com.example.ironproject.DTO.HotelStructure.FacilityDTO;
 import com.example.ironproject.controller.BaseTest;
 import com.example.ironproject.model.HotelStructure.Facility;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,8 @@ class FacilityControllerTest extends BaseTest {
     public void setUp() throws Exception {
         createTestingFacilities();
     }
+
+
 
     @Test
     void userCanGetFacilities() throws Exception {
@@ -94,7 +97,6 @@ class FacilityControllerTest extends BaseTest {
         values.setRoomId(facilityId);
         values.setName("sauna nueva");
         values.setCanBeBooked(false);
-        //values.setOpeningHours(); TODO
         values.setCapacity(10);
         values.setFloor(4);
         facilityList.add(values);
@@ -117,13 +119,11 @@ class FacilityControllerTest extends BaseTest {
         values1.setRoomId(facilityId);
         values1.setName("sauna nueva");
         values1.setCanBeBooked(false);
-        //values.setOpeningHours(); TODO
         values1.setCapacity(10);
         values1.setFloor(4);
         values2.setRoomId(facilityId1);
         values2.setName("restaurant nuevo");
         values2.setCanBeBooked(false);
-        //values.setOpeningHours(); TODO
         values2.setCapacity(1000);
         values2.setFloor(1);
         facilityList.add(values1);

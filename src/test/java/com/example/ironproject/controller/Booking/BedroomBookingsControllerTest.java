@@ -2,6 +2,8 @@ package com.example.ironproject.controller.Booking;
 
 import com.example.ironproject.DTO.Booking.BedroomBookingDTO;
 import com.example.ironproject.controller.BaseTest;
+import com.example.ironproject.model.Booking.BedroomBookings;
+import com.example.ironproject.repository.Booking.BedroomBookingsRepository;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,9 +27,10 @@ class BedroomBookingsControllerTest extends BaseTest {
     public void setUp() throws Exception {
         createTestingBedroomBookings();
     }
+
     @AfterEach
-    void tearDown() {
-        //bedroomBookingsRepository.deleteAll();
+    public void tearDown() throws Exception {
+        bedroomBookingsRepository.deleteAll();
     }
 
     @Test
