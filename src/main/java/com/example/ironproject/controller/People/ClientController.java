@@ -1,12 +1,9 @@
 package com.example.ironproject.controller.People;
 
 import com.example.ironproject.DTO.People.ClientDTO;
-import com.example.ironproject.DTO.People.EmployeeDTO;
 import com.example.ironproject.model.People.Client;
-import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.repository.People.ClientRepository;
 import com.example.ironproject.service.People.ClientService;
-import com.example.ironproject.service.People.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

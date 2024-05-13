@@ -2,9 +2,7 @@ package com.example.ironproject.controller.Booking;
 
 
 import com.example.ironproject.DTO.Booking.FacilityBookingDTO;
-import com.example.ironproject.model.Booking.BedroomBookings;
 import com.example.ironproject.model.Booking.FacilityBooking;
-import com.example.ironproject.model.People.Client;
 import com.example.ironproject.service.Bookings.FacilityBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

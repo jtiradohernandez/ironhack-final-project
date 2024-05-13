@@ -1,23 +1,12 @@
 package com.example.ironproject.controller.HotelStructure;
 
-import com.example.ironproject.DTO.HotelStructure.BedroomDTO;
 import com.example.ironproject.DTO.HotelStructure.FacilityDTO;
 import com.example.ironproject.controller.BaseTest;
 import com.example.ironproject.model.HotelStructure.Facility;
-import com.example.ironproject.model.HotelStructure.Hotel;
-import com.example.ironproject.repository.HotelStructure.FacilityRepository;
-import com.example.ironproject.repository.HotelStructure.HotelRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -25,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

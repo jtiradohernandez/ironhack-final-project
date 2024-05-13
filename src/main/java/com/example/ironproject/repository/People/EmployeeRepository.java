@@ -1,7 +1,6 @@
 package com.example.ironproject.repository.People;
 
 import com.example.ironproject.model.HotelStructure.Hotel;
-import com.example.ironproject.model.People.Client;
 import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.model.Security.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

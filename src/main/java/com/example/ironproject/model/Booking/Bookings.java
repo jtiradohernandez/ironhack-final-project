@@ -1,9 +1,6 @@
 package com.example.ironproject.model.Booking;
 
-import com.example.ironproject.model.HotelStructure.Bedroom;
-import com.example.ironproject.model.HotelStructure.Hotel;
-import com.example.ironproject.model.HotelStructure.Room;
-import com.example.ironproject.model.People.Client;
+import com.example.ironproject.model.People.Person;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +21,9 @@ abstract class Bookings {
     @NotEmpty(message = "The booking must be assigned to a client")
     @ManyToOne
     @JoinColumn(name="client_of_booking")
-    private Client clientOfBooking;
+    private Person clientOfBooking;
 
-    public Bookings(Client client) {
+    public Bookings(Person client) {
         this.clientOfBooking = client;
     }
 }

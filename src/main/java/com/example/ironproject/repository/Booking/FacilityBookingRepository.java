@@ -1,7 +1,6 @@
 package com.example.ironproject.repository.Booking;
 
 import com.example.ironproject.model.Booking.FacilityBooking;
-import com.example.ironproject.model.HotelStructure.Bedroom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

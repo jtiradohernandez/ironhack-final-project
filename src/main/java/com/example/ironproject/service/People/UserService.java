@@ -1,7 +1,6 @@
 package com.example.ironproject.service.People;
 
 import com.example.ironproject.DTO.People.EmployeeDTO;
-import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.model.Security.Role;
 import com.example.ironproject.repository.HotelStructure.HotelRepository;

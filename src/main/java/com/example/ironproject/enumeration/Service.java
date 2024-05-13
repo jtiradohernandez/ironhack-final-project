@@ -1,4 +1,4 @@
-package com.example.ironproject.model.Booking;
+package com.example.ironproject.enumeration;
 
 public enum Service {
     Reception,

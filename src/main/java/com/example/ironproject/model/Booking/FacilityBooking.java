@@ -1,7 +1,7 @@
 package com.example.ironproject.model.Booking;
 
+import com.example.ironproject.enumeration.Service;
 import com.example.ironproject.model.HotelStructure.Facility;
-import com.example.ironproject.model.HotelStructure.Room;
 import com.example.ironproject.model.People.Client;
 import com.example.ironproject.model.People.Employee;
 import jakarta.persistence.*;

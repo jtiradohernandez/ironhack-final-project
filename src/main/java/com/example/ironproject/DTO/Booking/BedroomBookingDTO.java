@@ -4,7 +4,6 @@ import com.example.ironproject.model.HotelStructure.Bedroom;
 import lombok.Data;
 
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Data

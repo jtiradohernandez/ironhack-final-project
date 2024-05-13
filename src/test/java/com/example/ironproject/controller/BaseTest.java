@@ -3,7 +3,7 @@ package com.example.ironproject.controller;
 import com.example.ironproject.enumeration.Jobs;
 import com.example.ironproject.model.Booking.BedroomBookings;
 import com.example.ironproject.model.Booking.FacilityBooking;
-import com.example.ironproject.model.Booking.Service;
+import com.example.ironproject.enumeration.Service;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.model.HotelStructure.Hotel;
@@ -21,7 +21,6 @@ import com.example.ironproject.repository.Security.RoleRepository;
 import com.example.ironproject.service.People.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.runner.RunWith;
@@ -89,18 +88,6 @@ public class BaseTest {
     protected void initialSetUp() throws Exception {
         createTestingEmployees();
         token = login("daku","12345678");
-    }
-
-    @AfterAll
-    protected void finalSetUp() throws Exception {
-        /*bedroomRepository.deleteAll();
-        facilityRepository.deleteAll();
-        hotelRepository.deleteAll();
-        clientRepository.deleteAll();
-        employeeRepository.deleteAll();
-        bedroomBookingsRepository.deleteAll();
-        facilityBookingRepository.deleteAll();
-        roleRepository.deleteAll();*/
     }
 
     protected String login(String username, String password) throws Exception {
@@ -234,6 +221,3 @@ public class BaseTest {
 
 
 }
-
-
-//8 20 al 29

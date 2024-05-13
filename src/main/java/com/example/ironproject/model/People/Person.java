@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-abstract class Person {
+public class Person {
     @Id
     private String DNI;
     @NotEmpty(message = "name cannot be empty")

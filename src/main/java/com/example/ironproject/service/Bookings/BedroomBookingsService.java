@@ -2,7 +2,6 @@ package com.example.ironproject.service.Bookings;
 
 import com.example.ironproject.DTO.Booking.BedroomBookingDTO;
 import com.example.ironproject.model.Booking.BedroomBookings;
-import com.example.ironproject.model.Booking.FacilityBooking;
 import com.example.ironproject.model.HotelStructure.Bedroom;
 import com.example.ironproject.repository.Booking.BedroomBookingsRepository;
 import com.example.ironproject.repository.HotelStructure.BedroomRepository;
@@ -78,8 +77,8 @@ public class BedroomBookingsService {
     }
 
     private boolean checkAvailability(Bedroom bedroom, Date arrivalDate, Date departureDate){
-        Integer desiredbedroomId = bedroomBookingsRepository.checkAvailability(bedroom.getRoomId(), arrivalDate, departureDate);
-        if (desiredbedroomId == null){
+        Integer desiredBedroomId = bedroomBookingsRepository.checkAvailability(bedroom.getRoomId(), arrivalDate, departureDate);
+        if (desiredBedroomId == null){
             return true;
         }else {
             return false;

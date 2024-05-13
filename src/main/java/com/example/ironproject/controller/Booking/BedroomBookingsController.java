@@ -3,9 +3,7 @@ package com.example.ironproject.controller.Booking;
 
 import com.example.ironproject.DTO.Booking.BedroomBookingDTO;
 import com.example.ironproject.model.Booking.BedroomBookings;
-import com.example.ironproject.model.Booking.FacilityBooking;
 import com.example.ironproject.model.HotelStructure.Bedroom;
-import com.example.ironproject.model.HotelStructure.Facility;
 import com.example.ironproject.service.Bookings.BedroomBookingsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

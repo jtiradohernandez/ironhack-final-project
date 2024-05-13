@@ -1,11 +1,7 @@
 package com.example.ironproject.service.People;
 
 import com.example.ironproject.DTO.People.ClientDTO;
-import com.example.ironproject.DTO.People.EmployeeDTO;
-import com.example.ironproject.model.HotelStructure.Bedroom;
-import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.model.People.Client;
-import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.repository.HotelStructure.HotelRepository;
 import com.example.ironproject.repository.People.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;

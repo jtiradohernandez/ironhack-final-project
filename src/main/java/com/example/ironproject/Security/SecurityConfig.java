@@ -76,17 +76,25 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         // set up authorization for different request matchers and user roles
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/api/login/**","/v3/api-docs/**","/swagger-ui/**").permitAll()
                 .requestMatchers(GET, "/api/hotel/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/bedrooms/bookings").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/bedrooms/bookings/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/clients").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/clients/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/facilities/bookings").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers( "/api/hotel/facilities/bookings/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
+                .requestMatchers(PATCH, "/api/hotel/employees/password/**").hasAnyAuthority("ROLE_EMPLOYEE","ROLE_ADMIN")
                 .requestMatchers(POST, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(PATCH, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
                 .requestMatchers(DELETE, "/api/hotel/**").hasAnyAuthority("ROLE_ADMIN")
+
+
                 .anyRequest().authenticated());
         // add the custom authentication filter to the http security object
         http.addFilter(customAuthenticationFilter);
         // Add the custom authorization filter before the standard authentication filter.
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-
         // Build the security filter chain to be returned.
         return http.build();
     }

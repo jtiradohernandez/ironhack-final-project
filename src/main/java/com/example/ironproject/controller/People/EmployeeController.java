@@ -1,9 +1,6 @@
 package com.example.ironproject.controller.People;
 
-import com.example.ironproject.DTO.HotelStructure.BedroomDTO;
 import com.example.ironproject.DTO.People.EmployeeDTO;
-import com.example.ironproject.model.HotelStructure.Bedroom;
-import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.model.People.Employee;
 import com.example.ironproject.repository.People.EmployeeRepository;
 import com.example.ironproject.service.People.UserService;
@@ -53,12 +50,6 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.OK)
     public Employee updateEmployee(@RequestBody @Valid EmployeeDTO employeeDTO){
         return userService.updateEmployee(employeeDTO);
-    }
-
-    @PatchMapping("/employees/{id}/{new_password}")
-    @ResponseStatus(HttpStatus.OK)
-    public Employee updateEmployeePassword(@PathVariable(name="id") String employeeId,@PathVariable(name="new_password") String newPassword){
-        return userService.updateEmployeePassword(employeeId,newPassword);
     }
 
     @DeleteMapping("/employees/{id}")

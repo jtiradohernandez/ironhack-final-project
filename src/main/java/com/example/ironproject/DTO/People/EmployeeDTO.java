@@ -2,7 +2,6 @@ package com.example.ironproject.DTO.People;
 
 import com.example.ironproject.enumeration.Jobs;
 import com.example.ironproject.model.HotelStructure.Hotel;
-import com.example.ironproject.model.Security.Role;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;

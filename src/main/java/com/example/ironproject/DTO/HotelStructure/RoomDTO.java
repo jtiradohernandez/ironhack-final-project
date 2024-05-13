@@ -1,10 +1,7 @@
 package com.example.ironproject.DTO.HotelStructure;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 @Data

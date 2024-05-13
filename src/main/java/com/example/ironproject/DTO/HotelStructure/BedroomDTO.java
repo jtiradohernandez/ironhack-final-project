@@ -2,7 +2,6 @@ package com.example.ironproject.DTO.HotelStructure;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 @Data

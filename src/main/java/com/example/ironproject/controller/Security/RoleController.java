@@ -1,9 +1,7 @@
 package com.example.ironproject.controller.Security;
 
-import com.example.ironproject.DTO.People.EmployeeDTO;
 import com.example.ironproject.DTO.Security.RoleToUserDTO;
 import com.example.ironproject.model.People.Employee;
-import com.example.ironproject.model.Security.Role;
 import com.example.ironproject.service.People.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +22,9 @@ public class RoleController {
         userService.addRoleToUser(roleToUserDTO.getUsername(), roleToUserDTO.getRoleName());
     }
 
-    @PatchMapping("/employees/password/{id}")
+    @PatchMapping("/employees/password/{id}/{new_password}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee updateEmployeePassword(@PathVariable(name="id") String employeeId, @RequestBody @Valid String newPassword){
+    public Employee updateEmployeePassword(@PathVariable(name="id") String employeeId,@PathVariable(name="new_password") String newPassword){
         return userService.updateEmployeePassword(employeeId, newPassword);
     }
 }

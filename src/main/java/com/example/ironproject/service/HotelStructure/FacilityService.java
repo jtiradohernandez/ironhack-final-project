@@ -2,7 +2,6 @@ package com.example.ironproject.service.HotelStructure;
 
 import com.example.ironproject.DTO.HotelStructure.FacilityDTO;
 import com.example.ironproject.model.HotelStructure.Facility;
-import com.example.ironproject.model.HotelStructure.Hotel;
 import com.example.ironproject.repository.HotelStructure.FacilityRepository;
 import com.example.ironproject.repository.HotelStructure.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
