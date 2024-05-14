@@ -153,6 +153,17 @@ class FacilityControllerTest extends BaseTest {
     }
 
     @Test
+    void facilityToDeleteDoesNotExist() throws Exception{
+        List<Integer> roomList = new ArrayList<Integer>();
+        Integer roomId = 1000;
+        roomList.add(roomId);
+        String body = objectMapper.writeValueAsString(roomList);
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/facilities").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Facility 1000 is not found"));
+    }
+
+    @Test
     void userCanDeleteMultipleFacilities() throws Exception{
         List<Integer> roomList = new ArrayList<Integer>();
         roomList.add(restaurant1.getRoomId());

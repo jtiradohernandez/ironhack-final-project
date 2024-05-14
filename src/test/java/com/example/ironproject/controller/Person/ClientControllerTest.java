@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -81,6 +82,18 @@ class ClientControllerTest extends BaseTest {
         assertFalse(mvcResult.getResponse().getContentAsString().contains("Lumbre"));
     }
 
+    @Test
+    void clientToUpdateDoesNotExist() throws Exception{
+        ClientDTO clientToUpdate = new ClientDTO();
+        clientId = "1000";
+        clientToUpdate.setDNI(clientId);
+        clientToUpdate.setOrigin("Asia");
+        String body = objectMapper.writeValueAsString(clientToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/clients").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Client is not found"));
+    }
+
 
     @Test
     void userCanDeleteClient() throws Exception{
@@ -88,5 +101,12 @@ class ClientControllerTest extends BaseTest {
         mockMvc.perform(delete("/api/hotel/clients/"+clientId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(clientRepository.findByDNI(clientId).isPresent());
+    }
+
+    @Test
+    void clientToDeleteDoesNotExist() throws Exception{
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/clients/1000").contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Client 1000 is not found"));
     }
 }

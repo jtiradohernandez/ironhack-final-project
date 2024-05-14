@@ -65,6 +65,19 @@ class BedroomBookingsControllerTest extends BaseTest {
     }
 
     @Test
+    void userCannotGetBedroomBookingById() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/hotel/bedrooms/bookings/10000").header("authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Esker"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Riebeck"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Feldespato"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Gabbro"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Chert"));
+    }
+
+    @Test
     void userCanGetBedroomBookingByHotelId() throws Exception {
         hotelId = hotel2.getHotelId();
         bedroomBookingId = bedroomBooking1.getBookingId();

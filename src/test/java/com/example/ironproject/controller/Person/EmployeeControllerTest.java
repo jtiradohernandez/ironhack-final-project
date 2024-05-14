@@ -86,6 +86,20 @@ class EmployeeControllerTest extends BaseTest {
     }
 
     @Test
+    void employeeToUpdateDoesNotExist() throws Exception{
+        createTestingHotels();
+        EmployeeDTO employeeToUpdate = new EmployeeDTO();
+        employeeId = "qwerqwerqwerqwer";
+        employeeToUpdate.setDNI(employeeId);
+        employeeToUpdate.setJob(Jobs.Cleaning);
+        employeeToUpdate.setHotelAssigned(hotel);
+        String body = objectMapper.writeValueAsString(employeeToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Employee is not found"));
+    }
+
+    @Test
     void userCanUpdateEmployeePassword() throws Exception{
         String newPassword = "newpassword1234";
         employeeId = employee1.getDNI();
@@ -93,10 +107,27 @@ class EmployeeControllerTest extends BaseTest {
                 .andExpect(status().isOk()).andReturn();
     }
     @Test
+    void employeeToUpdatePasswordDoesNotExist() throws Exception{
+        String newPassword = "newpassword1234";
+        employeeId = "qwerqwerqwerqwer";
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/employees/password/"+employeeId+"/"+newPassword).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Employee qwerqwerqwerqwer is not found"));
+    }
+
+    @Test
     void userCanDeleteEmployee() throws Exception{
         employeeId = employee1.getDNI();
         mockMvc.perform(delete("/api/hotel/employees/"+employeeId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(employeeRepository.findByDNI(employeeId).isPresent());
+    }
+
+    @Test
+    void employeeToDeleteDoesNotExist() throws Exception{
+
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/employees/qwerqwerqwerqwer").contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Employee qwerqwerqwerqwer is not found"));
     }
 }

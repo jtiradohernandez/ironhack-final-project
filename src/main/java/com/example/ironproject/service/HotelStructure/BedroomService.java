@@ -44,7 +44,7 @@ public class BedroomService {
     public void deleteBedrooms(List<Integer> bedroomIDs) {
         for(int i = 0; i < bedroomIDs.size();i++){
             int id = bedroomIDs.get(i);
-            bedroomRepository.delete(bedroomRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bedroom " + id +" not found")));
+            bedroomRepository.delete(bedroomRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bedroom " + id +" is not found")));
         }
     }
 

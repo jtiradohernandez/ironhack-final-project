@@ -43,7 +43,7 @@ public class FacilityService {
     public void deleteFacilities(List<Integer> facilityIDs) {
         for(int i = 0; i < facilityIDs.size();i++){
             int id = facilityIDs.get(i);
-            facilityRepository.delete(facilityRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Facility " + id +" not found")));
+            facilityRepository.delete(facilityRepository.findByRoomId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Facility " + id +" is not found")));
         }
     }
 
