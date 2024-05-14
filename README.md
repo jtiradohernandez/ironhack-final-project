@@ -8,6 +8,10 @@ Nomai Timeless Resorts is a chain with hotels across different planets in space.
 ![Captura de pantalla 2024-04-16 a las 16 52 59](https://github.com/jtiradohernandez/ironhack-final-project/assets/23397511/cc57ba63-8a90-4bb9-aeed-1344dcdcbda9)
 
 ##    Setup
+1. Go to application.properties file and edit spring.datasource.url with the values of your MySQL Database
+2. To create information for testing, run setup() test located at Setup file
+3. Run the project and the API will be read
+4. If you want to clean the database, run cleanDatabase() test located at Setup file
 
 ## Technologies Used
 - Java

@@ -24,6 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FacilityBookingsControllerTest extends BaseTest {
     @BeforeEach
     public void setUp() throws Exception {
+        createTestingHotels();
+        createTestingFacilities();
+        createRoles();
+        createTestingEmployees();
+        createTestingClients();
         createTestingFacilityBookings();
     }
 

@@ -113,7 +113,6 @@ public class BaseTest {
     }
 
     public void createTestingBedrooms(){
-        createTestingHotels();
         bedroom1 = new Bedroom( hotel, 1, 2, 100 );
         bedroom2 = new Bedroom( hotel, 1, 2, 101 );
         bedroom3 = new Bedroom( hotel, 1, 2, 102 );
@@ -131,7 +130,6 @@ public class BaseTest {
     }
 
     public void createTestingFacilities(){
-        createTestingHotels();
         gym1 = new Facility( hotel,"Gimnasio hondonada", -1, true, 150);
         gym2 = new Facility( hotel2, "Gimnasio nomai",4, true, 60);
         sauna = new Facility( hotel,"Sauna", -1, true, 6 );
@@ -240,8 +238,6 @@ public class BaseTest {
     }
 
     public void createTestingBedroomBookings(){
-        createTestingBedrooms();
-        createTestingClients();
         Date arrivalDate1 = new Date(125, 5, 30);
         Date departureDate1 = new Date(125, 6, 10);
         Date arrivalDate2 = new Date(125, 8, 25);
@@ -259,4 +255,15 @@ public class BaseTest {
         bedroomBookingsRepository.save(bedroomBooking4);
         bedroomBookingsRepository.save(bedroomBooking5);
     }
+
+    public void createAllTesting(){
+        createTestingHotels();
+        createTestingBedrooms();
+        createTestingFacilities();
+        createTestingEmployees();
+        createTestingClients();
+        createTestingFacilityBookings();
+        createTestingBedroomBookings();
+    }
+
 }

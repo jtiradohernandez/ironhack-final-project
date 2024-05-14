@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EmployeeControllerTest extends BaseTest {
     @BeforeEach
     public void setUp() throws Exception {
+        createRoles();
         createTestingEmployees();
     }
     /*@AfterEach
