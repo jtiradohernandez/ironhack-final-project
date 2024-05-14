@@ -99,7 +99,7 @@ public class BaseTest {
         return JsonPath.read(result.getResponse().getContentAsString(), "$.access_token");
     }
 
-    protected void createTestingHotels(){
+    public void createTestingHotels(){
         hotel = new Hotel("Hotel Outer Wilds", "Santuario","Superficie","Hondonada Frágil",100);
         hotel2 = new Hotel("Wild Resort", "Estudio","Centro","Hondonada Frágil",100);
         hotel3 = new Hotel("Outer Hotels", "Estudio","Subterraneo","Lumbre",100);
@@ -112,7 +112,7 @@ public class BaseTest {
         hotelRepository.save(hotel5);
     }
 
-    protected void createTestingBedrooms(){
+    public void createTestingBedrooms(){
         createTestingHotels();
         bedroom1 = new Bedroom( hotel, 1, 2, 100 );
         bedroom2 = new Bedroom( hotel, 1, 2, 101 );
@@ -130,7 +130,7 @@ public class BaseTest {
         bedroomRepository.save(bedroom7);
     }
 
-    protected void createTestingFacilities(){
+    public void createTestingFacilities(){
         createTestingHotels();
         gym1 = new Facility( hotel,"Gimnasio hondonada", -1, true, 150);
         gym2 = new Facility( hotel2, "Gimnasio nomai",4, true, 60);
@@ -144,7 +144,7 @@ public class BaseTest {
         facilityRepository.save(restaurant2);
     }
 
-    protected void createTestingClients(){
+    public void createTestingClients(){
         date = new Date(90, 8, 2);
         client1 = new Client("1234","Esker",date, "Lumbre");
         client2 = new Client("1362","Riebeck",date, "Hondonada Frágil");
@@ -158,7 +158,7 @@ public class BaseTest {
         clientRepository.save(client5);
     }
 
-    protected void createTestingEmployees(){
+    public void createTestingEmployees(){
         createRoles();
         date = new Date(90, 8, 2);
         employee1 = new Employee("1235","Solanum",date, Jobs.Reception,admin, "Solanum","12345678");
@@ -174,12 +174,12 @@ public class BaseTest {
         userService.addEmployee(employee5);
     }
 
-    protected void createRoles(){
+    public void createRoles(){
         roleRepository.save(admin);
         roleRepository.save(employee);
     }
 
-    protected void createTestingFacilityBookings(){
+    public void createTestingFacilityBookings(){
         createTestingFacilities();
         createTestingEmployees();
         createTestingClients();
@@ -239,7 +239,7 @@ public class BaseTest {
         facilityBookingRepository.save(facilityBooking5);
     }
 
-    protected void createTestingBedroomBookings(){
+    public void createTestingBedroomBookings(){
         createTestingBedrooms();
         createTestingClients();
         Date arrivalDate1 = new Date(125, 5, 30);

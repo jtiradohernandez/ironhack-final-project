@@ -57,6 +57,9 @@ public class FacilityBookingService {
 
     public void deleteFacility(int facilityBookingId) {
         FacilityBooking booking = facilityBookingRepository.findFacilityBookingByBookingId(facilityBookingId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation " + facilityBookingId +" is not found"));
+        booking.setClientOfBooking(null);
+        booking.setWorkerAssigned(null);
+        booking.setRoomBooked(null);
         facilityBookingRepository.delete(booking);
     }
 

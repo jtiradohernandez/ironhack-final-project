@@ -27,6 +27,10 @@ class FacilityBookingsControllerTest extends BaseTest {
         createTestingFacilityBookings();
     }
 
+    @AfterEach
+    public void tearDown() throws Exception {
+        facilityBookingRepository.deleteAll();
+    }
 
     @Test
     void userCanGetFacilityBooking() throws Exception {
@@ -64,8 +68,8 @@ class FacilityBookingsControllerTest extends BaseTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
-        assertTrue(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId)));
-        assertTrue(mvcResult.getResponse().getContentAsString().contains(String.valueOf(facilityBookingId1)));
+        assertTrue(mvcResult.getResponse().getContentAsString().contains("Feldespato"));
+        assertFalse(mvcResult.getResponse().getContentAsString().contains("Esker"));
     }
 
     @Test
