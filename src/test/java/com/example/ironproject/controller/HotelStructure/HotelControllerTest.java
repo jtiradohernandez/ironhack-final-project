@@ -139,6 +139,17 @@ class HotelControllerTest extends BaseTest {
     }
 
     @Test
+    void hotelToDeleteDoesNotExist() throws Exception{
+        List<Integer> hotelList = new ArrayList<Integer>();
+        Integer hotelId = 1000;
+        hotelList.add(hotelId);
+        String body = objectMapper.writeValueAsString(hotelList);
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel").content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Hotel 1000 is not found"));
+    }
+
+    @Test
     void userCanDeleteMultipleHotels() throws Exception{
         List<Integer> hotelList = new ArrayList<Integer>();
         hotelList.add(hotel.getHotelId());

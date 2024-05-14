@@ -1,5 +1,6 @@
 package com.example.ironproject.controller.Booking;
 
+import com.example.ironproject.DTO.Booking.BedroomBookingDTO;
 import com.example.ironproject.DTO.Booking.FacilityBookingDTO;
 import com.example.ironproject.controller.BaseTest;
 import com.example.ironproject.enumeration.Service;
@@ -113,10 +114,34 @@ class FacilityBookingsControllerTest extends BaseTest {
     }
 
     @Test
+    void facilityBookingToUpdateDoesNotExist() throws Exception{
+        FacilityBookingDTO bookingToUpdate = new FacilityBookingDTO();
+        facilityBookingId = 1000;
+        Date slot = new Date(125, 9, 20);
+        bookingToUpdate.setRoomBooked(sauna);
+        bookingToUpdate.setClientOfBooking(client5);
+        bookingToUpdate.setSlot(slot);
+        bookingToUpdate.setService(Service.Cleaning);
+        bookingToUpdate.setWorkerAssigned(employee3);
+        String body = objectMapper.writeValueAsString(bookingToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/facilities/bookings/"+facilityBookingId).content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Reservation 1000 is not found"));
+    }
+
+    @Test
     void userCanDeleteFacilityBooking() throws Exception{
         facilityBookingId = facilityBooking1.getBookingId();
         mockMvc.perform(delete("/api/hotel/facilities/bookings/"+facilityBookingId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(facilityBookingRepository.findFacilityBookingByBookingId(facilityBookingId).isPresent());
+    }
+
+    @Test
+    void facilityBookingToDeleteDoesNotExist() throws Exception{
+        facilityBookingId = 10000;
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/facilities/bookings/"+facilityBookingId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Reservation 10000 is not found"));
     }
 }

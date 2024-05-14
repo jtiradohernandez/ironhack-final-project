@@ -37,7 +37,7 @@ public class HotelService {
     public void deleteHotels(List<Integer> hotelIDs) {
         for(int i = 0; i < hotelIDs.size();i++){
             int id = hotelIDs.get(i);
-            hotelRepository.delete(hotelRepository.findByHotelId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel " + id +" not found")));
+            hotelRepository.delete(hotelRepository.findByHotelId(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Hotel " + id +" is not found")));
         }
     }
 

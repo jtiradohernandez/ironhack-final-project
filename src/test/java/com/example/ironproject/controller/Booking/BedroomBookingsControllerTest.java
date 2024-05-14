@@ -13,7 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -140,10 +142,33 @@ class BedroomBookingsControllerTest extends BaseTest {
     }
 
     @Test
+    void bedroomBookingToUpdateDoesNotExist() throws Exception{
+        BedroomBookingDTO bookingToUpdate = new BedroomBookingDTO();
+        bedroomBookingId = 10000;
+        Date arrivalDate = new Date(125, 9, 20);
+        Date departureDate = new Date(125, 9, 30);
+        bookingToUpdate.setRoomBooked(bedroom4);
+        bookingToUpdate.setClientOfBooking(client5);
+        bookingToUpdate.setArrivalDate(arrivalDate);
+        bookingToUpdate.setDepartureDate(departureDate);
+        String body = objectMapper.writeValueAsString(bookingToUpdate);
+        MvcResult mvcResult = mockMvc.perform(patch("/api/hotel/bedrooms/bookings/"+bedroomBookingId).content(body).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Reservation 10000 is not found"));
+    }
+    @Test
     void userCanDeleteBedroomBooking() throws Exception{
         bedroomBookingId = bedroomBooking1.getBookingId();
         mockMvc.perform(delete("/api/hotel/bedrooms/bookings/"+bedroomBookingId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
                 .andExpect(status().isOk()).andReturn();
         assertFalse(bedroomBookingsRepository.findBedroomBookingsByBookingId(bedroomBookingId).isPresent());
+    }
+
+    @Test
+    void bedroomBookingToDeleteDoesNotExist() throws Exception{
+        bedroomBookingId = 10000;
+        MvcResult mvcResult = mockMvc.perform(delete("/api/hotel/bedrooms/bookings/"+bedroomBookingId).contentType(MediaType.APPLICATION_JSON).header("authorization", "Bearer " + token))
+                .andExpect(status().isNotFound()).andReturn();
+        assertTrue(mvcResult.getResponse().getErrorMessage().contains("Reservation 10000 is not found"));
     }
 }

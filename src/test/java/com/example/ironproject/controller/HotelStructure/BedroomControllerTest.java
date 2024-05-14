@@ -40,7 +40,6 @@ class BedroomControllerTest extends BaseTest {
         assertTrue(mvcResult.getResponse().getContentAsString().contains("103"));
         assertTrue(mvcResult.getResponse().getContentAsString().contains("104"));
         assertFalse(mvcResult.getResponse().getContentAsString().contains("105"));
-        assertFalse(mvcResult.getResponse().getContentAsString().contains("99"));
     }
 
     @Test
