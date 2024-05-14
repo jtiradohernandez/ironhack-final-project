@@ -6,6 +6,10 @@ Nomai Timeless Resorts is a chain with hotels across different planets in space.
 
 ## UML diagram
 ![Captura de pantalla 2024-05-13 a las 17 03 23](https://github.com/jtiradohernandez/ironhack-final-project/assets/23397511/a03a3a8f-90e9-4908-b3d8-208c0660c152)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2a1b17527d286c7473ec4b61cb1714b23836d4bb
 
 ##    Setup
 1. Go to application.properties file and edit spring.datasource.url with the values of your MySQL Database
