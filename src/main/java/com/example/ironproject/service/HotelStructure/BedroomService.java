@@ -36,7 +36,9 @@ public class BedroomService {
     public List<Bedroom> addBedrooms(List<Bedroom> bedrooms) {
         List<Bedroom> bedroomsRepo = new ArrayList<Bedroom>();
         for(int i = 0; i < bedrooms.size();i++){
-            bedroomsRepo.add(bedroomRepository.save(bedrooms.get(i)));
+            if(bedroomRepository.findByRoomId(bedrooms.get(i).getRoomId()).isEmpty()) {
+                bedroomsRepo.add(bedroomRepository.save(bedrooms.get(i)));
+            }
         }
         return bedroomsRepo;
     }

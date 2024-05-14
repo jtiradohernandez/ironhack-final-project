@@ -29,7 +29,9 @@ public class HotelService {
     public List<Hotel> addHotels(List<Hotel> hotels) {
         List<Hotel> hotelsRepo = new ArrayList<Hotel>();
         for(int i = 0; i < hotels.size();i++){
-            hotelsRepo.add(hotelRepository.save(hotels.get(i)));
+            if(hotelRepository.findByHotelId(hotels.get(i).getHotelId()).isEmpty()) {
+                hotelsRepo.add(hotelRepository.save(hotels.get(i)));
+            }
         }
         return hotelsRepo;
     }

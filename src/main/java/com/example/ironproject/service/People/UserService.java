@@ -98,8 +98,12 @@ public class UserService implements UserDetailsService {
     }
 
     public Employee addEmployee(Employee user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return employeeRepository.save(user);
+        if(employeeRepository.findByDNI(user.getDNI()).isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return employeeRepository.save(user);
+        }else {
+            return null;
+        }
     }
 
     public Employee updateEmployee(EmployeeDTO employeeDTO) {

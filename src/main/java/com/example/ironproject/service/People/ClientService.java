@@ -28,7 +28,11 @@ public class ClientService {
         return clientRepository.findByDNI(id);
     }
     public Client addClient(Client client) {
-        return clientRepository.save(client);
+        if(clientRepository.findByDNI(client.getDNI()).isEmpty()) {
+            return clientRepository.save(client);
+        }else {
+            return null;
+        }
     }
 
     public Client updateClient(ClientDTO clientDTO){

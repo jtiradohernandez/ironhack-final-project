@@ -11,11 +11,4 @@ public class IronprojectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IronprojectApplication.class, args);
 	}
-	/*@Bean
-	CommandLineRunner run(UserService userService) {
-		InitialSetup init = new InitialSetup();
-		return args -> {
-			init.createAll();
-		};
-	}*/
 }

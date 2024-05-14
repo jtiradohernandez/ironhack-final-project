@@ -35,7 +35,9 @@ public class FacilityService {
     public List<Facility> addFacilities(List<Facility> facilities) {
         List<Facility> facilitiesRepo = new ArrayList<Facility>();
         for(int i = 0; i < facilities.size();i++){
-            facilitiesRepo.add(facilityRepository.save(facilities.get(i)));
+            if(facilityRepository.findByRoomId(facilities.get(i).getRoomId()).isEmpty()) {
+                facilitiesRepo.add(facilityRepository.save(facilities.get(i)));
+            }
         }
         return facilitiesRepo;
     }
