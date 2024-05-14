@@ -73,8 +73,6 @@ Nomai Timeless Resorts is a chain with hotels across different planets in space.
 - [Trello board](https://trello.com/b/mpwpbS6r)
 - [Lucidchart: UML Diagram](https://lucid.app/lucidchart/c7168214-eee8-4411-90d7-12470c8a2333/edit?viewport_loc=-2888%2C-2868%2C5244%2C4756%2C0_0&invitationId=inv_a5fb7a48-20f5-4536-a249-e4eb6c6ed326) 
 - [Canva: Presentation Slides](https://www.canva.com/design/DAGE6rpwNNo/wu43thNGxL4GRG87qd5iOw/edit?utm_content=DAGE6rpwNNo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
-##    Future Work
-
 
 ##    Team members
 Javier Tirado Hernández
